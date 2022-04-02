@@ -113,6 +113,10 @@ body {
     width: 100%
 }
 
+h1 {
+        font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
 .text {
     bottom: 1rem;
     position: absolute
@@ -962,8 +966,8 @@ td {
 
 @media screen and (max-width:480px) {
     h1 {
-        font-size: 26px
-    }
+        font-size: 26px;
+        font-family: Georgia, 'Times New Roman', Times, serif;    }
 
     .underline {
         width: 68px
@@ -976,7 +980,8 @@ td {
 
 @media screen and (max-width:420px) {
     h1 {
-        font-size: 18px
+        font-size: 18px;
+        font-family: Georgia, 'Times New Roman', Times, serif;
     }
 
     .icon {
