@@ -1,3 +1,1244 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap');
+
 body {
     background-color: #F7F4F0;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0
+}
+
+body,
+body:before {
+    overflow: overlay;
+    width: 100%
+}
+
+body:before {
+    bottom: 0;
+    content: "";
+    left: 0;
+    opacity: .4;
+    position: absolute;
+    position: fixed;
+    top: 0;
+    z-index: -1
+}
+
+a,
+a :visited {
+    color: #fff
+}
+
+a {
+    text-decoration: none
+}
+
+li {
+    list-style: none
+}
+
+.btn,
+.lien {
+    align-items: center;
+    border: 1px solid #fff;
+    border-radius: 8px;
+    display: flex;
+    font-size: 1.2rem;
+    justify-content: center;
+    margin: 1.5rem;
+    padding: .7rem;
+    text-align: center
+}
+
+.lienFlex {
+    display: flex;
+    flex-wrap: wrap
+}
+
+.flash-notice {
+    background-color: red;
+    font-size: 15rem
+}
+
+body {
+    height: 100vh
+}
+
+.etablissement_desktop {
+    background: #333;
+    display: flex;
+    height: 80%;
+    margin: 0 auto;
+    max-width: 100%;
+    min-width: 600px;
+    padding: 2rem
+}
+
+.image_desktop {
+    cursor: pointer;
+    margin: 10px;
+    min-width: 60px;
+    overflow: hidden;
+    position: relative;
+    transition: .5s cubic-bezier(.05, .61, .41, .95)
+}
+
+.image_desktop.active {
+    background-size: auto 100%;
+    border-radius: 7px;
+    flex-grow: 100;
+    margin: 0;
+    max-width: 1000px
+}
+
+.image_desktop:not(.active) {
+    border-radius: 5px;
+    flex-grow: 1
+}
+
+.text-container {
+    background: linear-gradient(354deg, #000, transparent 72%);
+    color: #fff;
+    height: 100%;
+    opacity: 0;
+    overflow: hidden;
+    padding: 2rem;
+    transform: translateY(300px);
+    transition: all .8s ease;
+    visibility: hidden;
+    width: 100%
+}
+
+.text {
+    bottom: 1rem;
+    position: absolute
+}
+
+.active .text-container {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible
+}
+
+#myBtn {
+    background-color: green;
+    border: none;
+    border-radius: 4px;
+    bottom: 20px;
+    color: #fff;
+    cursor: pointer;
+    display: none;
+    font-size: 18px;
+    outline: none;
+    padding: 15px;
+    position: fixed;
+    right: 30px;
+    z-index: 99
+}
+
+.navbar {
+    align-items: center;
+    background-color: linear-gradient(270deg, #348f50, #56b4d3);
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px
+}
+
+.nav-links a,
+.navbar {
+    color: #fff
+}
+
+.logo {
+    font-size: 24px
+}
+
+.logo,
+.logo a {
+    color: #333
+}
+
+.menu {
+    display: flex;
+    font-size: 18px;
+    gap: 1em
+}
+
+.menu li:hover {
+    background: linear-gradient(270deg, #348f50, #56b4d3);
+    border-radius: 5px;
+    transition: .3s ease
+}
+
+.menu li {
+    padding: 5px 14px
+}
+
+.services {
+    position: relative
+}
+
+.dropdown {
+    background: linear-gradient(270deg, #348f50, #56b4d3);
+    border-radius: 8px;
+    display: none;
+    padding: 1em 0;
+    position: absolute;
+    top: 35px;
+    z-index: 100
+}
+
+.dropdown li+li {
+    margin-top: 10px
+}
+
+.dropdown li {
+    padding: .5em 1em;
+    text-align: center;
+    width: 8em
+}
+
+.dropdown li:hover {
+    background: linear-gradient(270deg, #348f50, #56b4d3)
+}
+
+.services:hover .dropdown {
+    display: block
+}
+
+.hamburger,
+input[type=checkbox] {
+    display: none
+}
+
+.hamburger {
+    font-size: 24px;
+    user-select: none
+}
+
+@media screen and (max-width:768px) {
+    .menu {
+        display: none;
+        left: 0;
+        padding: 16px 0;
+        position: absolute;
+        right: 0;
+        text-align: center;
+        z-index: 100
+    }
+
+    .menu,
+    .menu li:hover {
+        background: linear-gradient(270deg, #348f50, #56b4d3)
+    }
+
+    .menu li:hover {
+        display: inline-block;
+        transition: .3s ease
+    }
+
+    .menu li+li {
+        margin-top: 12px
+    }
+
+    .hamburger,
+    input[type=checkbox]:checked~.menu {
+        display: block
+    }
+
+    .dropdown {
+        left: 50%;
+        top: 30px;
+        transform: translateX(35%)
+    }
+
+    .dropdown li:hover {
+        background: linear-gradient(270deg, #348f50, #56b4d3)
+    }
+}
+
+.gerantEtablissement {
+    align-items: center;
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center
+}
+
+.gerantEtablissement h1 {
+    margin-top: 1rem
+}
+
+.gerantEtablissement .lienEtablissement {
+    border: 1px solid #fff;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    margin: 2rem;
+    padding: .7rem;
+    text-align: center
+}
+
+.gerantEtablissement .gerantEtablissementContent {
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding: .5rem 2rem
+}
+
+.gerantContent,
+.gerantEtablissement .gerantEtablissementContent {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center
+}
+
+.gerantContent {
+    background-color: linear-gradient(270deg, #348f50, #56b4d3)
+}
+
+.gerantContent h2 {
+    margin: 1rem
+}
+
+.gerantContent .gerantSuite {
+    align-items: center;
+    background-color: #333;
+    border: 3px solid #000;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    width: 95vw
+}
+
+.gerantContent .tarif {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 3rem;
+    width: 100%
+}
+
+.gerantContent .lienEtablissement {
+    border: 1px solid #fff;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    margin: 2rem;
+    padding: .7rem;
+    text-align: center
+}
+
+.gerantContent .suiteTitre {
+    display: flex;
+    flex-wrap: nowrap;
+    font-size: 2
+}
+
+.suite {
+    align-items: center;
+    background-color: #fff;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center
+}
+
+.suite h1 {
+    background: #333;
+    border: 1px solid #5c5696;
+    box-shadow: 0 2px 2px #5c5696;
+    color: #fff;
+    font-size: 24px;
+    padding: 16px 20px;
+    text-align: center;
+    width: 100%
+}
+
+.suite .lienBooking {
+    background-color: #333;
+    padding: 1rem;
+    text-align: center
+}
+
+.suite .lienBooking:hover {
+    background: #792f79
+}
+
+.suite .suiteContent {
+    align-items: "center";
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: "center"
+}
+
+.suite .suiteContent .suiteDescription {
+    background: linear-gradient(270deg, #348f50, #56b4d3);
+    padding: 2rem
+}
+
+.suite .suiteContent img {
+    padding: 1rem
+}
+
+#suites textarea {
+    height: 300px;
+    width: 100vw
+}
+
+@media (min-width:1250px) {
+    .imagesSuite {
+        margin: auto;
+        width: 70%
+    }
+}
+
+.etablissement {
+    background: linear-gradient(270deg, #348f50, #56b4d3)
+}
+
+.etablissement .etablissementContent {
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: .5rem
+}
+
+.etablissement .etablissementContent .etablissementVilleAdresse {
+    font-size: .8rem;
+    justify-content: space-around
+}
+
+.etablissement .etablissementContent .etablissementTop {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem
+}
+
+.etablissement .etablissementContent .etablissementDescription {
+    font-size: 1rem;
+    margin-top: 1rem;
+    padding: 2rem
+}
+
+.etablissement .etablissementContent .lienFlex {
+    display: flex;
+    flex-direction: row
+}
+
+.etablissement .lienEtablissement {
+    border: 1px solid #fff;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    margin: 2rem;
+    padding: .7rem;
+    text-align: center
+}
+
+#etablissements_description {
+    height: 300px;
+    width: 100vw
+}
+
+@media (min-width:1250px) {
+    .etablissementTop {
+        margin: 1rem 5rem
+    }
+
+    .imgSuiteListe {
+        display: block;
+        margin: auto;
+        width: 80%
+    }
+
+    .suiteDescriptionListe {
+        width: 70%
+    }
+}
+
+.login__h1 {
+    color: #fff;
+    margin: 1rem;
+    text-align: center
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem
+}
+
+.screen {
+    background: linear-gradient(270deg, #348f50, #56b4d3);
+    box-shadow: 0 0 24px #5c5696;
+    height: 600px;
+    overflow: hidden;
+    position: relative;
+    width: 350px
+}
+
+.screen__content {
+    height: 100%;
+    position: relative;
+    z-index: 1
+}
+
+.screen__background {
+    bottom: 0;
+    -webkit-clip-path: inset(0 0 0 0);
+    clip-path: inset(0 0 0 0);
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 0
+}
+
+.screen__background__shape {
+    position: absolute;
+    transform: rotate(45deg)
+}
+
+.screen__background__shape1 {
+    background: #fff;
+    border-radius: 0 72px 0 0;
+    height: 520px;
+    right: 120px;
+    top: -50px;
+    width: 520px
+}
+
+.screen__background__shape2 {
+    height: 220px;
+    top: -172px;
+    width: 220px
+}
+
+.screen__background__shape2,
+.screen__background__shape3 {
+    background: linear-gradient(270deg, #348f50, #56b4d3);
+    border-radius: 32px;
+    right: 0
+}
+
+.screen__background__shape3 {
+    height: 540px;
+    top: -24px;
+    width: 190px
+}
+
+.screen__background__shape4 {
+    background: linear-gradient(270deg, #348f50, #56b4d3);
+    border-radius: 60px;
+    height: 400px;
+    right: 50px;
+    top: 420px;
+    width: 200px
+}
+
+.login {
+    padding: 156px 30px 30px;
+    width: 320px
+}
+
+.login__field {
+    padding: 20px 0;
+    position: relative
+}
+
+.login__icon {
+    color: #7875b5;
+    position: absolute;
+    top: 30px
+}
+
+.login__input {
+    background: none;
+    border: none;
+    border-bottom: 2px solid #d1d1d4;
+    font-weight: 700;
+    padding: 10px 10px 10px 24px;
+    transition: .2s;
+    width: 75%
+}
+
+.login__input:active,
+.login__input:focus,
+.login__input:hover {
+    border-bottom-color: #6a679e;
+    outline: none
+}
+
+.login__submit {
+    align-items: center;
+    background: #fff;
+    border: 1px solid #d4d3e8;
+    border-radius: 26px;
+    box-shadow: 0 2px 2px #5c5696;
+    color: #4c489d;
+    cursor: pointer;
+    display: flex;
+    font-size: 14px;
+    font-weight: 700;
+    margin-top: 30px;
+    padding: 16px 20px;
+    text-transform: uppercase;
+    transition: .2s;
+    width: 100%
+}
+
+.login__submit:active,
+.login__submit:focus,
+.login__submit:hover {
+    border-color: #6a679e;
+    outline: none
+}
+
+.button__icon {
+    color: #7875b5;
+    font-size: 24px;
+    margin-left: auto
+}
+
+.newAccount {
+    padding: 2rem
+}
+
+@media (min-width:1250px) {
+    .container {
+        margin-top: 5rem
+    }
+
+    .container ::-webkit-input-placeholder {
+        color: #fff
+    }
+
+    .container :-moz-placeholder,
+    .container ::-moz-placeholder {
+        color: #fff;
+        opacity: 1
+    }
+
+    .container :-ms-input-placeholder {
+        color: #fff
+    }
+
+    .screen {
+        height: 70%;
+        width: 70%
+    }
+
+    .screen input {
+        color: #fff
+    }
+
+    .screen__background__shape1 {
+        align-items: center;
+        background: linear-gradient(270deg, #348f50, #56b4d3);
+        border-radius: 0 72px 0 0;
+        display: flex;
+        font-size: 7rem;
+        height: 520px;
+        justify-content: center;
+        opacity: .8;
+        right: 120px;
+        top: -50px;
+        width: 520px
+    }
+}
+
+.lienFlexAdmin {
+    display: flex;
+    flex-direction: column
+}
+
+.imageSuiteAdmin {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem
+}
+
+td {
+    border: 1px solid #000;
+    padding: 2rem
+}
+
+.adminListe {
+    align-items: center;
+    border: 1px solid #333;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
+    margin: 1rem;
+    padding: 1rem
+}
+
+@media (max-width:800px) {
+    .suiteDescriptionAdmin {
+        display: none
+    }
+
+    .imageSuiteAdmin {
+        flex-wrap: wrap
+    }
+}
+
+.calendarContent {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem
+}
+
+.calendarContent h1 {
+    color: #fff
+}
+
+.calendarContent .reservationButton {
+    background: #fff;
+    border: 1px solid #d4d3e8;
+    border-radius: 26px;
+    box-shadow: 0 2px 2px #5c5696;
+    color: #4c489d;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 700;
+    margin-top: 30px;
+    padding: 16px 20px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: .2s;
+    width: 100%
+}
+
+.reservationNewDetails {
+    color: #fff;
+    font-size: 1.3rem;
+    margin-bottom: 2rem
+}
+
+#reservation_suites {
+    appearance: none;
+    background: #fff;
+    text-align: center;
+    width: 100%
+}
+
+.reservationSucessContent {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    width: 100%
+}
+
+.reservationSucessContent h1 {
+    color: #fff
+}
+
+.reservationSucess {
+    align-items: center;
+    border: 1px solid #fff;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 1rem;
+    padding: 1rem
+}
+
+@media screen and (min-width:768px) {
+    .calendarContent h1 {
+        color: #fff;
+        margin-bottom: 2rem
+    }
+
+    .calendarContent .reservationNewDetails {
+        margin-top: 2rem
+    }
+}
+
+#container {
+    border: 3px solid #474544;
+    height: 70vh;
+    margin: 60px auto;
+    max-width: 95%;
+    position: relative
+}
+
+#container button {
+    overflow: visible
+}
+
+#container button,
+#container select {
+    text-transform: none
+}
+
+#container button,
+#container input,
+#container select,
+#container textarea {
+    color: #5a5a5a;
+    font: inherit;
+    margin: 0
+}
+
+#container input {
+    line-height: normal
+}
+
+#container textarea {
+    overflow: auto
+}
+
+#container form {
+    margin: 50px 0;
+    padding: 37.5px
+}
+
+#container h1 {
+    color: #fff;
+    font-family: Montserrat, Arial, sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: 7px;
+    margin-top: 1rem;
+    text-align: center;
+    text-transform: uppercase
+}
+
+#container .underline {
+    border-bottom: 2px solid #474544;
+    margin: -.512em auto;
+    width: 80px
+}
+
+#container .icon_wrapper {
+    margin: 50px auto 0;
+    width: 100%
+}
+
+#container .icon {
+    fill: #474544;
+    display: block;
+    height: 50px;
+    margin: 0 auto;
+    width: 50px
+}
+
+#container .email {
+    float: right;
+    width: 45%
+}
+
+#container [type=email],
+#container input[type=text],
+#container select,
+#container textarea {
+    background: none;
+    border: none;
+    border-bottom: 2px solid #474544;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #fff;
+    font-size: 1em;
+    font-weight: 400;
+    letter-spacing: 1px;
+    margin: 0 0 1.875em;
+    padding: 0 0 .875em;
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    -ms-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s;
+    width: 100%
+}
+
+#container [type=email]:focus,
+#container input[type=text]:focus,
+#container textarea:focus {
+    outline: none;
+    padding: 0 0 .875em
+}
+
+#container .message {
+    float: none
+}
+
+#container .name {
+    float: left;
+    width: 45%
+}
+
+#container select option {
+    color: #333
+}
+
+#container select {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background: url("https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-arrow-down-32.png") no-repeat 100%;
+    outline: none
+}
+
+#container select::-ms-expand {
+    display: none
+}
+
+#container .subject,
+#container .telephone {
+    width: 100%
+}
+
+#container textarea {
+    height: 50px;
+    line-height: 150%;
+    resize: none;
+    width: 100%
+}
+
+#container ::-webkit-input-placeholder {
+    color: #fff
+}
+
+#container :-moz-placeholder,
+#container ::-moz-placeholder {
+    color: #fff;
+    opacity: 1
+}
+
+#container :-ms-input-placeholder {
+    color: #fff
+}
+
+#container #form_button {
+    background: none;
+    border: 2px solid #474544;
+    color: #f2f3eb;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: .875em;
+    font-weight: 700;
+    outline: none;
+    padding: 20px 35px;
+    text-transform: uppercase;
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    -ms-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s
+}
+
+#container #form_button:hover {
+    color: #474544
+}
+
+@media screen and (max-width:768px) {
+    #container {
+        margin: 20px auto;
+        width: 95%
+    }
+}
+
+@media screen and (max-width:480px) {
+    h1 {
+        font-size: 26px
+    }
+
+    .underline {
+        width: 68px
+    }
+
+    #form_button {
+        padding: 15px 25px
+    }
+}
+
+@media screen and (max-width:420px) {
+    h1 {
+        font-size: 18px
+    }
+
+    .icon {
+        height: 35px;
+        width: 35px
+    }
+
+    .underline {
+        width: 53px
+    }
+
+    [type=email],
+    input[type=text],
+    select,
+    textarea {
+        font-size: .875em
+    }
+}
+
+.clientHome {
+    gap: 1rem
+}
+
+.clientHome,
+.clientHome .reservationClient {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center
+}
+
+.clientHome .reservationClient {
+    border: 3px solid #000;
+    border-radius: 25px;
+    padding: 2rem;
+    width: 99%
+}
+
+.clientHome .reservationClient h2 {
+    margin-bottom: 1rem
+}
+
+.clientHome button {
+    align-items: center;
+    background: #fff;
+    border: 1px solid #d4d3e8;
+    border-radius: 26px;
+    box-shadow: 0 2px 2px #5c5696;
+    color: #4c489d;
+    cursor: pointer;
+    display: flex;
+    font-size: 14px;
+    font-weight: 700;
+    margin-top: 30px;
+    padding: 16px 20px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: .2s
+}
+
+.h1newClient {
+    text-align: center
+}
+
+.newCompte {
+    height: 100%;
+    margin: auto;
+    width: 50%
+}
+
+.newCompte,
+form[name=clients] {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center
+}
+
+form[name=clients] {
+    gap: 1rem
+}
+
+form[name=clients] input {
+    border-radius: 12px;
+    margin: 1rem;
+    padding: .5rem
+}
+
+form[name=clients] input:focus {
+    border: none
+}
+
+form[name=clients] .btn {
+    align-items: center;
+    border: 1px solid #fff;
+    border-radius: 8px;
+    display: flex;
+    font-size: 1.2rem;
+    justify-content: center;
+    margin: 2rem;
+    padding: .7rem;
+    text-align: center
+}
+
+.react-calendar__month-view__weekNumbers .react-calendar__tile,
+.react-calendar__month-view__weekdays {
+    font-size: .75em
+}
+
+.react-calendar__tile:disabled {
+    background-color: #f0f0f0
+}
+
+.react-calendar {
+    background: #fff;
+    border: 1px solid #a0a096;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.125em;
+    max-width: 100%;
+    width: 350px
+}
+
+.react-calendar--doubleView {
+    width: 700px
+}
+
+.react-calendar--doubleView .react-calendar__viewContainer {
+    display: flex;
+    margin: -.5em
+}
+
+.react-calendar--doubleView .react-calendar__viewContainer>* {
+    margin: .5em;
+    width: 50%
+}
+
+.react-calendar,
+.react-calendar *,
+.react-calendar :after,
+.react-calendar :before {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box
+}
+
+.react-calendar button {
+    border: 0;
+    margin: 0;
+    outline: none
+}
+
+.react-calendar button:enabled:hover {
+    cursor: pointer
+}
+
+.react-calendar__navigation {
+    display: flex;
+    height: 44px;
+    margin-bottom: 1em
+}
+
+.react-calendar__navigation button {
+    background: none;
+    min-width: 44px
+}
+
+.react-calendar__navigation button:disabled {
+    background-color: #f0f0f0
+}
+
+.react-calendar__navigation button:enabled:focus,
+.react-calendar__navigation button:enabled:hover {
+    background-color: #e6e6e6
+}
+
+.react-calendar__month-view__weekdays {
+    font-size: .75rem;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase
+}
+
+.react-calendar__month-view__weekdays__weekday {
+    padding: .5em
+}
+
+.react-calendar__month-view__weekNumbers .react-calendar__tile {
+    align-items: center;
+    display: flex;
+    font-size: .75rem;
+    font-weight: 700;
+    justify-content: center
+}
+
+.react-calendar__month-view__days__day--weekend {
+    color: #d10000
+}
+
+.react-calendar__month-view__days__day--neighboringMonth {
+    color: #757575
+}
+
+.react-calendar__century-view .react-calendar__tile,
+.react-calendar__decade-view .react-calendar__tile,
+.react-calendar__year-view .react-calendar__tile {
+    padding: 2em .5em
+}
+
+.react-calendar__tile {
+    background: none;
+    line-height: 16px;
+    max-width: 100%;
+    padding: 10px 6.6667px;
+    text-align: center
+}
+
+.react-calendar__tile:disabled {
+    background-color: #d4d4d4
+}
+
+.react-calendar__tile:enabled:focus,
+.react-calendar__tile:enabled:hover {
+    background-color: #e6e6e6
+}
+
+.react-calendar__tile--now {
+    background: #ffff76
+}
+
+.react-calendar__tile--now:enabled:focus,
+.react-calendar__tile--now:enabled:hover {
+    background: #ffffa9
+}
+
+.react-calendar__tile--hasActive {
+    background: #76baff
+}
+
+.react-calendar__tile--hasActive:enabled:focus,
+.react-calendar__tile--hasActive:enabled:hover {
+    background: #a9d4ff
+}
+
+.react-calendar__tile--active {
+    background: #006edc;
+    color: #fff
+}
+
+.react-calendar__tile--active:enabled:focus,
+.react-calendar__tile--active:enabled:hover {
+    background: #1087ff
+}
+
+.react-calendar--selectRange .react-calendar__tile--hover {
+    background-color: #e6e6e6
+}
+
+.react-calendar__navigation__label {
+    font-size: 1.3rem
+}
+
+@media screen and (max-width:768px) {
+    .react-calendar__tile {
+        padding: 20px 6.6667px
+    }
 }
