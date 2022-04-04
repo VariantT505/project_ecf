@@ -3,15 +3,31 @@
 
 body {
     background-color: #F7F4F0;
-    font-family: 'Nunito Sans', sans-serif
+    font-family: 'Nunito Sans', sans-serif;
 }
 
 h1 {
-    font-family: Georgia, 'Times New Roman', Times, serif
+    font-size: 32px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: bold;
+    padding-left: 0.40rem;
+    padding-top: 22px;
+}
+
+h2 {
+    font-size: 32px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: bold;
+    padding-left: 0.40rem;
+    padding-top: 16px;
 }
 
 body>div.container-fluid {
     padding: 0;
+}
+
+.container {
+    padding-left: 0.40rem !important;
 }
 
 .text-secondary {
