@@ -7,5 +7,51 @@ body {
 }
 
 h1 {
-        font-family: Georgia, 'Times New Roman', Times, serif
+    font-family: Georgia, 'Times New Roman', Times, serif
+}
+
+body>div.container-fluid {
+    padding: 0;
+}
+
+.text-secondary {
+    color: #1C1C1C;
+}
+
+.bg-primary {
+    background-color: #E9D7A3;
+}
+
+.bg-secondary {
+    background-color: #1C1C1C;
+}
+
+.btn-outline-secondary {
+    color: #1C1C1C;
+    border-radius: 5px !important;
+    border-color: #1C1C1C;
+}
+
+.btn-outline-secondary:hover {
+    color: #1C1C1C;
+    background-color: #E9D7A3;
+    border-color: #E9D7A3;
+}
+
+.nav-link:focus,
+.nav-link:hover {
+    color: #E9D7A3 !important;
+}
+
+.bi {
+    vertical-align: -.125em;
+    /* fill: currentColor; */
+}
+
+.text-small {
+    font-size: 85%;
+}
+
+.dropdown-toggle {
+    outline: 0;
 }
