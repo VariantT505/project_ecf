@@ -1,0 +1,19 @@
+<div class="col-hotel py-5">
+	<div class="container-xxl">
+		<div class="row g-3 g-xl-5">
+			{% for etablissement in Etablissements %}
+				<div class="col-md-6 col-lg-4 col-xl-3">
+					<div class="card">
+						<img src="{{asset('img/hotel-lux.jpeg')}}" class="card-img-top " alt="...">
+						<div class="card-body">
+							<h5 class="card-title text-center title_hotel">{{Etablissements.title}}</h5>
+							<div class="button_hotel">
+								<a href="{{path('hotel_show',{'id': etablissements.etaid})}}" class="btn btn-primary btn-card">Voir l'hotel</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>

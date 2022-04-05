@@ -9,7 +9,25 @@
 
 	{{ include('homepage.html.twig') }}
 
-	{{ include('filler.php') }}
+	<div class="col-hotel py-5">
+	<div class="container-xxl">
+		<div class="row g-3 g-xl-5">
+			{% for etablissement in etablissements %}
+				<div class="col-md-6 col-lg-4 col-xl-3">
+					<div class="card">
+						<img src="{{asset('img/hotel-lux.jpeg')}}" class="card-img-top " alt="...">
+						<div class="card-body">
+							<h5 class="card-title text-center title_hotel">{{etablissement.name}}</h5>
+							<div class="button_hotel">
+								<a href="etablissement/" class="btn btn-primary btn-card">Voir l'hotel</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.6/dist/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
