@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="reservations", uniqueConstraints={@ORM\UniqueConstraint(name="startdate", columns={"startdate", "enddate", "suiid"})}, indexes={@ORM\Index(name="cliid", columns={"cliid"}), @ORM\Index(name="suiid", columns={"suiid"})})
  * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\ResaRepo")
  */
 class Reservations
 {

@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="etablissements", uniqueConstraints={@ORM\UniqueConstraint(name="email", columns={"email"})}, indexes={@ORM\Index(name="admid", columns={"admid"})})
  * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\EtablRepo")
  */
 class Etablissements
 {
