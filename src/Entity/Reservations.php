@@ -55,5 +55,58 @@ class Reservations
      */
     private $suiid;
 
+    public function getResid(): ?int
+    {
+        return $this->resid;
+    }
+
+    public function getStartdate(): ?\DateTimeInterface
+    {
+        return $this->startdate;
+    }
+
+    public function setStartdate(\DateTimeInterface $startdate): self
+    {
+        $this->startdate = $startdate;
+
+        return $this;
+    }
+
+    public function getEnddate(): ?\DateTimeInterface
+    {
+        return $this->enddate;
+    }
+
+    public function setEnddate(\DateTimeInterface $enddate): self
+    {
+        $this->enddate = $enddate;
+
+        return $this;
+    }
+
+    public function getCliid(): ?Clients
+    {
+        return $this->cliid;
+    }
+
+    public function setCliid(?Clients $cliid): self
+    {
+        $this->cliid = $cliid;
+
+        return $this;
+    }
+
+    public function getSuiid(): ?Suites
+    {
+        return $this->suiid;
+    }
+
+    public function setSuiid(?Suites $suiid): self
+    {
+        $this->suiid = $suiid;
+
+        return $this;
+    }
+
 
 }

@@ -87,5 +87,118 @@ class Etablissements
      */
     private $admid;
 
+    public function getEtaid(): ?int
+    {
+        return $this->etaid;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(string $address): self
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getPostalcode(): ?int
+    {
+        return $this->postalcode;
+    }
+
+    public function setPostalcode(int $postalcode): self
+    {
+        $this->postalcode = $postalcode;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getFeaturedimage(): ?string
+    {
+        return $this->featuredimage;
+    }
+
+    public function setFeaturedimage(string $featuredimage): self
+    {
+        $this->featuredimage = $featuredimage;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    public function getAdmid(): ?Administrateurs
+    {
+        return $this->admid;
+    }
+
+    public function setAdmid(?Administrateurs $admid): self
+    {
+        $this->admid = $admid;
+
+        return $this;
+    }
+
 
 }

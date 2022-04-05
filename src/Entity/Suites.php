@@ -87,5 +87,118 @@ class Suites
      */
     private $etaid;
 
+    public function getSuiid(): ?int
+    {
+        return $this->suiid;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(?string $title): self
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    public function getFeaturedimage(): ?string
+    {
+        return $this->featuredimage;
+    }
+
+    public function setFeaturedimage(string $featuredimage): self
+    {
+        $this->featuredimage = $featuredimage;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getPrice(): ?string
+    {
+        return $this->price;
+    }
+
+    public function setPrice(string $price): self
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    public function getGalleryone(): ?string
+    {
+        return $this->galleryone;
+    }
+
+    public function setGalleryone(string $galleryone): self
+    {
+        $this->galleryone = $galleryone;
+
+        return $this;
+    }
+
+    public function getGallerytwo(): ?string
+    {
+        return $this->gallerytwo;
+    }
+
+    public function setGallerytwo(string $gallerytwo): self
+    {
+        $this->gallerytwo = $gallerytwo;
+
+        return $this;
+    }
+
+    public function getGallerythree(): ?string
+    {
+        return $this->gallerythree;
+    }
+
+    public function setGallerythree(string $gallerythree): self
+    {
+        $this->gallerythree = $gallerythree;
+
+        return $this;
+    }
+
+    public function getBookingurl(): ?string
+    {
+        return $this->bookingurl;
+    }
+
+    public function setBookingurl(?string $bookingurl): self
+    {
+        $this->bookingurl = $bookingurl;
+
+        return $this;
+    }
+
+    public function getEtaid(): ?Etablissements
+    {
+        return $this->etaid;
+    }
+
+    public function setEtaid(?Etablissements $etaid): self
+    {
+        $this->etaid = $etaid;
+
+        return $this;
+    }
+
 
 }
