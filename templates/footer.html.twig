@@ -1,0 +1,60 @@
+<div class="container-fluid footercontainer">
+	<footer class="row row-cols-6 py-5 mt-5 border-top">
+
+		<div class="col"></div>
+
+		<div class="col">
+			<img src="../../images/hypnos.png" width="70px" alt="Hypnos logo">
+			<p class="text-muted">&copy; 2022</p>
+		</div>
+
+		<div class="col">
+			<h5>Sitemap</h5>
+			<ul class="nav flex-column">
+				<li class="nav-item mb-2">
+					<a href="index.php" class="nav-link p-0 text-muted">Accueil</a>
+				</li>
+				<li class="nav-item mb-2">
+					<a href="contact.php" class="nav-link p-0 text-muted">Contact</a>
+				</li>
+				<li class="nav-item mb-2">
+					<a href="login.php" class="nav-link p-0 text-muted">Mon Compte</a>
+				</li>
+			</ul>
+		</div>
+
+		<div class="col">
+			<h5>Etablissements</h5>
+			<ul class="nav flex-column">
+				{% for etablissement in etablissements %}
+					<li class="nav-item mb-2">
+						<a href="{{path('etab_list',{'id': etablissement.etaid})}}" class="nav-link p-0 text-muted">{{ etablissement.name }}</a>
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
+
+		<div class="col">
+			<h5>Legal</h5>
+			<ul class="nav flex-column">
+				<li class="nav-item mb-2">
+					<a href="#" class="nav-link p-0 text-muted">C.G.U.</a>
+				</li>
+				<li class="nav-item mb-2">
+					<a href="#" class="nav-link p-0 text-muted">Politique de confidentialité</a>
+				</li>
+				<li class="nav-item mb-2">
+					<a href="#" class="nav-link p-0 text-muted">Politique de cookies</a>
+				</li>
+				<li class="nav-item mb-2">
+					<a href="#" class="nav-link p-0 text-muted">Mentions légales</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+</div>
+
+<div class="col"></div>
+
+
+<div class="b-example-divider"></div>

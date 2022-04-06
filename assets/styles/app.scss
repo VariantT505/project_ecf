@@ -1,8 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap');
 @import "~bootstrap/scss/bootstrap";
 
+$color-beige: #F7F4F0;
+$color-black: #1C1C1C;
+$color-yellow: #E9D7A3;
+
+/* OVERRIDES ------------------------------------------------*/
+
 body {
-    background-color: #F7F4F0;
+    background-color: $color-beige;
     font-family: 'Nunito Sans', sans-serif;
 }
 
@@ -31,33 +37,106 @@ body>div.container-fluid {
 }
 
 .text-secondary {
-    color: #1C1C1C;
+    color: $color-black;
 }
 
 .bg-primary {
-    background-color: #E9D7A3;
+    background-color: $color-yellow;
 }
 
 .bg-secondary {
-    background-color: #1C1C1C;
+    background-color: $color-black;
 }
 
 .btn-outline-secondary {
-    color: #1C1C1C;
+    color: $color-black;
     border-radius: 5px !important;
-    border-color: #1C1C1C;
+    border-color: $color-black;
+    border-width: 2px;
+    text-transform: uppercase;
 }
 
 .btn-outline-secondary:hover {
-    color: #1C1C1C;
-    background-color: #E9D7A3;
-    border-color: #E9D7A3;
+    color: $color-black;
+    background-color: $color-yellow;
+    border-color: $color-yellow;
 }
 
 .nav-link:focus,
 .nav-link:hover {
-    color: #E9D7A3 !important;
+    color: $color-yellow !important;
 }
+
+/* CARD ------------------------------------------------*/
+
+.card {
+    height: 100%;
+    background-color: transparent;
+    border: none;
+
+    h3 {
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        margin-top: 1.5rem;
+        font-size: 25px;
+    }
+
+    h4 {
+        margin-bottom: 1.5rem;
+        font-size: 20px;
+        font-weight: 200;
+    }
+
+    .crop-img {
+        position: relative;
+        min-height: 18rem;
+        max-height: 18rem;
+        overflow: hidden;
+        vertical-align: middle;
+    }
+
+    .frame-decoration {
+        display: block;
+        position: absolute;
+        border: 2px white solid;
+        top: 30px;
+        bottom: 30px;
+        left: 30px;
+        right: 30px;
+    }
+
+    .frame-decoration:hover {
+        border: 2px $color-yellow solid;
+    }
+
+    .frame-decoration:hover .btn-overlap {
+        border: 2px $color-yellow solid;
+        background-color: $color-yellow;
+    }
+
+    .btn-overlap {
+        display: block;
+        position: absolute;
+        bottom: 0px;
+        right: 0px;
+    }
+
+    .btn-outline-secondary {
+        color: $color-black;
+        border-color: white;
+        background-color: white;
+        border-radius: 0 !important;
+    }
+
+    p {
+        text-align: justify;
+    }
+}
+
+.crop-img img {
+    // margin-top: -20%;
+}
+
+/* OTHER ------------------------------------------------ */
 
 .bi {
     vertical-align: -.125em;
@@ -70,4 +149,10 @@ body>div.container-fluid {
 
 .dropdown-toggle {
     outline: 0;
+}
+
+/* FOOTER ------------------------------------------------ */
+
+.footercontainer {
+    background-color: $color-yellow;
 }

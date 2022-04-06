@@ -16,13 +16,9 @@
 								Etablissements
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="etab/banner.php">Banner</a>
-								<a class="dropdown-item" href="etab/widow.php">Widow</a>
-								<a class="dropdown-item" href="etab/odinson.php">Odinson</a>
-								<a class="dropdown-item" href="etab/stark.php">Stark</a>
-								<a class="dropdown-item" href="etab/rogers.php">Rogers</a>
-								<a class="dropdown-item" href="etab/barton.php">Barton</a>
-								<a class="dropdown-item" href="etab/parker.php">Parker</a>
+				{% for etablissement in etablissements %}
+								<a class="dropdown-item" href="{{path('etab_list',{'id': etablissement.etaid})}}">{{ etablissement.name }}</a>
+				{% endfor %}
 							</div>
 						</li>
 						<li class="nav-item px-5">
