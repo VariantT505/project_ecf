@@ -8,6 +8,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Administrateurs;
+use App\Entity\Etablissements;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 
 class DashboardController extends AbstractDashboardController
 {
@@ -43,7 +46,14 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
+        yield MenuItem::section('Dashboard');
+        yield MenuItem::subMenu('Administrateurs', 'fas fa-bars')->setSubItems([
+            MenuItem::linktoCrud('Afficher', 'fas fa-eye', Administrateurs::class),
+            MenuItem::linktoCrud('Ajouter', 'fas fa-plus', Administrateurs::class)->setAction(Crud::PAGE_NEW),
+        ]);
+        yield MenuItem::subMenu('Gérants et établissements', 'fas fa-bars')->setSubItems([
+            MenuItem::linktoCrud('Afficher', 'fas fa-eye', Etablissements::class),
+            MenuItem::linktoCrud('Ajouter', 'fas fa-plus', Etablissements::class)->setAction(Crud::PAGE_NEW),
+        ]);
     }
 }
