@@ -2,7 +2,10 @@
 
 namespace App\Entity;
 
+use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Etablissements
@@ -11,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Entity(repositoryClass="App\Repository\EtablRepo")
  */
-class Etablissements
+class Etablissements implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
      * @var int
@@ -165,6 +168,35 @@ class Etablissements
         return $this;
     }
 
+      /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
     public function getEmail(): ?string
     {
         return $this->email;
@@ -189,7 +221,7 @@ class Etablissements
         return $this;
     }
 
-    public function getAdmid(): ?Administrateurs
+    public function getAdmid() : ?Administrateurs
     {
         return $this->admid;
     }
@@ -201,5 +233,12 @@ class Etablissements
         return $this;
     }
 
-
+   /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
 }
