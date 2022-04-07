@@ -53,7 +53,7 @@ class EtablRepo extends ServiceEntityRepository implements PasswordUpgraderInter
      */
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
     {
-        if (!$user instanceof Admin) {
+        if (!$user instanceof Etablissements) {
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', \get_class($user)));
         }
 

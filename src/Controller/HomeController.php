@@ -30,18 +30,4 @@ class HomeController extends AbstractController
             'etablissements' => $etablissements,
         ]);
     }
-
-    #[Route('/etablissement/{id}', name: 'etab_list', methods: ['GET'])]
-    public function show(Etablissements $etablissements, SuitesRepo $suitesRepo): Response
-    {
-        $id =  $etablissements->getEtaid();
-
-        $suites = $suitesRepo->findByetaid($id);
-
-
-        return $this->render('etablissement/listing.html.twig', [
-            'etablissement' => $etablissements,
-            'suites' => $suites,
-        ]);
-    }
 }
