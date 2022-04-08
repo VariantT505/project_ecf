@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Repository\AdminRepository;
+use App\Repository\AdminRepo;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -73,7 +73,7 @@ class Administrateurs implements UserInterface, PasswordAuthenticatedUserInterfa
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        $roles[] = 'ROLE_ADMIN';
 
         return array_unique($roles);
     }
