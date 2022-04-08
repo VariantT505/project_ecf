@@ -26,6 +26,13 @@ class Administrateurs implements UserInterface, PasswordAuthenticatedUserInterfa
     private $admid;
 
     /**
+     * @var string|null
+     *
+     * @ORM\Column(name="roles", type="string", length=60, nullable=true, options={"default"="ROLE_ADMIN"})
+     */
+    private $roles = 'ROLE_ADMIN';
+
+    /**
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255, nullable=false)

@@ -28,6 +28,13 @@ class Clients implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var string|null
      *
+     * @ORM\Column(name="roles", type="string", length=60, nullable=true, options={"default"="ROLE_USER"})
+     */
+    private $roles = 'ROLE_USER';
+
+    /**
+     * @var string|null
+     *
      * @ORM\Column(name="firstname", type="string", length=255, nullable=true)
      */
     private $firstname;

@@ -28,6 +28,13 @@ class Etablissements implements UserInterface, PasswordAuthenticatedUserInterfac
     /**
      * @var string|null
      *
+     * @ORM\Column(name="roles", type="string", length=60, nullable=true, options={"default"="ROLE_GERANT"})
+     */
+    private $roles = 'ROLE_GERANT';
+
+    /**
+     * @var string|null
+     *
      * @ORM\Column(name="name", type="string", length=255, nullable=true)
      */
     private $name;

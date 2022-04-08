@@ -5,4 +5,10 @@
 
 {% block body %}
 
+{{ form_start(form) }}
+{{ form_row(form) }}
+<br/>
+<button class="btn btn btn-outline-secondary" type="submit">Envoyer</button>
+{{ form_end(form) }}
+
 {% endblock %}
