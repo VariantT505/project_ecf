@@ -10,29 +10,20 @@ use App\Entity\Suites;
 use App\Repository\EtablRepo;
 use App\Repository\SuitesRepo;
 
-class HomeController extends AbstractController
+class FooterController extends AbstractController
 {
-    #[Route('/', name: 'app_home')]
-    public function index(): Response
-    {
-        return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
-        ]);
-    }
-
-    #[Route('/', name: 'app_home')]
-    public function etablissement(EtablRepo $etablRepo): Response
+    public function etablissementAction(EtablRepo $etablRepo): Response
     {
         $etablissements = $etablRepo->findAll();
 
-        return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
+        return $this->render('footer.html.twig', [
+            'controller_name' => 'FooterController',
             'etablissements' => $etablissements,
         ]);
     }
 
     #[Route('/etablissement/{id}', name: 'etab_list', methods: ['GET'])]
-    public function show(Etablissements $etablissements, SuitesRepo $suitesRepo): Response
+    public function showAction(Etablissements $etablissements, SuitesRepo $suitesRepo): Response
     {
         $id =  $etablissements->getEtaid();
 
@@ -44,4 +35,5 @@ class HomeController extends AbstractController
             'suites' => $suites,
         ]);
     }
+
 }
