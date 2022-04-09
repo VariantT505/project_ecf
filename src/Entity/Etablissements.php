@@ -84,7 +84,7 @@ class Etablissements implements UserInterface, PasswordAuthenticatedUserInterfac
     /**
      * @var string
      *
-     * @ORM\Column(name="password", type="string", length=60, nullable=false, options={"fixed"=true})
+     * @ORM\Column(name="password", type="string", length=255, nullable=false, options={"fixed"=true})
      */
     private $password;
 
