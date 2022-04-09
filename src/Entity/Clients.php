@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ClienRepo;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -14,6 +15,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Entity
  * @ORM\Entity(repositoryClass="App\Repository\ClienRepo")
  */
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class Clients implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
@@ -28,7 +30,7 @@ class Clients implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var string|null
      *
-     * @ORM\Column(name="roles", type="string", length=60, nullable=true, options={"default"="ROLE_USER"})
+     * @ORM\Column(name="roles", type="json", nullable=true)
      */
     private $roles = 'ROLE_USER';
 
@@ -118,6 +120,7 @@ class Clients implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
+        $roles = [];
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!
+{% block title %}Se connecter
 {% endblock %}
 
 {% block body %}
@@ -51,8 +51,14 @@
 			<div class="col-sm-2 my-auto">
 				<h1 style="text-align:center">ou</h1>
 			</div>
-			<div class="col-sm-3">
-				<h1 class="h3 mb-3 font-weight-normal">Nouveau client :<br/>Créer un compte</h1>
+			<div class="col-sm-3 my-auto">
+			<div>
+				<h1 class="h3 mb-3 font-weight-normal">Vous n'avez pas encore de compte ?</h1></div>
+				<div class="content-section text-center">
+									<a href="/register" class="btn btn btn-outline-secondary">
+						Cliquez ici pour en créer un
+					</a>
+</div>
 			</div>
 		</div>
 	</div>

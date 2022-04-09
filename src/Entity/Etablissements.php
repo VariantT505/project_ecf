@@ -28,7 +28,7 @@ class Etablissements implements UserInterface, PasswordAuthenticatedUserInterfac
     /**
      * @var string|null
      *
-     * @ORM\Column(name="roles", type="string", length=60, nullable=true, options={"default"="ROLE_GERANT"})
+     * @ORM\Column(name="roles", type="json", nullable=true)
      */
     private $roles = 'ROLE_GERANT';
 
@@ -192,6 +192,7 @@ class Etablissements implements UserInterface, PasswordAuthenticatedUserInterfac
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
+        $roles = [];
         $roles[] = 'ROLE_GERANT';
 
         return array_unique($roles);
