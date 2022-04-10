@@ -25,8 +25,14 @@
 							<a class="nav-link" href="contact.php">Contact</a>
 						</li>
 					</ul>
+											{% if app.user %}
 					<div class="d-flex">
-						<a class="btn btn-outline-secondary" href="/login" role="button">MON COMPTE</a>
+						<a class="btn btn-outline-secondary" href="/admin" role="button">Mon compte</a>&nbsp;<a href="{{ path('app_logout') }}"class="btn btn-outline-secondary">Déconnexion</a>
+							{% else %}
+					<div class="d-flex">
+						<a class="btn btn-outline-secondary" href="/login" role="button">Me connecter</a>
+					{% endif %}
+
 					</div>
 				</div>
 			</div>

@@ -4,6 +4,14 @@ namespace App\Controller\Admin;
 
 use App\Entity\Administrateurs;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
 
 class AdministrateursCrudController extends AbstractCrudController
 {
@@ -12,14 +20,17 @@ class AdministrateursCrudController extends AbstractCrudController
         return Administrateurs::class;
     }
 
-    /*
-    public function configureFields(string $pageName): iterable
+    public function configureCrud(Crud $crud): Crud
     {
-        return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
-        ];
+        return $crud
+            ->setEntityLabelInSingular('Administrateur')
+            ->setEntityLabelInPlural('Administrateurs')
+            ->setSearchFields(['admid', 'email']);
     }
-    */
+
+    // public function configureFields(string $pageName): iterable
+    // {
+    //     yield EmailField::new('email');
+
+    // }
 }
