@@ -60,29 +60,26 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linktoCrud('Ajouter', 'fas fa-plus', Administrateurs::class)->setAction(Crud::PAGE_NEW),
         ])
         ->setPermission('ROLE_ADMIN');
-        yield MenuItem::subMenu('Établissements', 'fas fa-bars')->setSubItems([
+        yield MenuItem::subMenu('Nos établissements', 'fas fa-bars')->setSubItems([
             MenuItem::linktoCrud('Afficher', 'fas fa-eye', Etablissements::class),
             MenuItem::linktoCrud('Ajouter', 'fas fa-plus', Etablissements::class)->setAction(Crud::PAGE_NEW),
         ])
         ->setPermission('ROLE_ADMIN');
-        yield MenuItem::subMenu('Établissements', 'fas fa-bars')->setSubItems([
+        yield MenuItem::subMenu('Mon établissement', 'fas fa-bars')->setSubItems([
             MenuItem::linktoCrud('Afficher', 'fas fa-eye', Etablissements::class),
-            MenuItem::linktoCrud('Ajouter', 'fas fa-plus', Etablissements::class)->setAction(Crud::PAGE_NEW),
         ])
         ->setPermission('ROLE_GERANT');
-        yield MenuItem::subMenu('Suites', 'fas fa-bars')->setSubItems([
+        yield MenuItem::subMenu('Mes Suites', 'fas fa-bars')->setSubItems([
             MenuItem::linktoCrud('Afficher', 'fas fa-eye', Suites::class),
             MenuItem::linktoCrud('Ajouter', 'fas fa-plus', Suites::class)->setAction(Crud::PAGE_NEW),
         ])
         ->setPermission('ROLE_GERANT');
-        yield MenuItem::subMenu('Clients', 'fas fa-bars')->setSubItems([
-            MenuItem::linktoCrud('Afficher', 'fas fa-eye', Clients::class),
-            MenuItem::linktoCrud('Ajouter', 'fas fa-plus', Clients::class)->setAction(Crud::PAGE_NEW),
+        yield MenuItem::subMenu('Mes informations', 'fas fa-bars')->setSubItems([
+            MenuItem::linktoCrud('Gérer', 'fas fa-eye', Clients::class),
         ])
         ->setPermission('ROLE_USER');
-        yield MenuItem::subMenu('Réservations', 'fas fa-bars')->setSubItems([
-            MenuItem::linktoCrud('Afficher', 'fas fa-eye', Reservations::class),
-            MenuItem::linktoCrud('Ajouter', 'fas fa-plus', Reservations::class)->setAction(Crud::PAGE_NEW),
+        yield MenuItem::subMenu('Mes réservations', 'fas fa-bars')->setSubItems([
+            MenuItem::linktoCrud('Gérer', 'fas fa-eye', Reservations::class),
         ])
         ->setPermission('ROLE_USER');
     }

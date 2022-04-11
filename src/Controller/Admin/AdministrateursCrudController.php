@@ -28,9 +28,11 @@ class AdministrateursCrudController extends AbstractCrudController
             ->setSearchFields(['admid', 'email']);
     }
 
-    // public function configureFields(string $pageName): iterable
-    // {
-    //     yield EmailField::new('email');
-
-    // }
+    public function configureFields(string $pageName): iterable
+    {
+        return [
+            EmailField::new('email'),
+            TextField::new('password', 'Mot de passe')->hideOnIndex(),
+        ];
+    }
 }
