@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Reservations;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,9 +27,8 @@ class EtablissementController extends AbstractController
             'suite' => $suites,
         ]);
     }
-    /**
-     * @Route("/{id}/new", name="app_reservation_new_r", methods= {"GET", "POST"})
-     */
+
+    #[Route('/{id}/new', name: 'app_reservation_new_r', methods: ['GET', 'POST'])]
     public function newR(Request $request, ResaRepo $resaRepo, $id, Suites $suites): Response
     {
 
@@ -42,8 +42,8 @@ class EtablissementController extends AbstractController
         $r = count($result);
 
         if ($r < 1) {
-            $reservation = new Reservation();
-            $reservation->setHotel($etablissement);
+            $reservation = new Reservations();
+            $reservation->setEtablissement($etablissement);
             $reservation->setSuite($suites);
             $form = $this->createForm(ReservationType::class, $reservation);
             $form->handleRequest($request);
