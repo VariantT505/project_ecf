@@ -12,6 +12,10 @@ body {
     font-family: 'Nunito Sans', sans-serif;
 }
 
+p {
+    text-align: justify;
+}
+
 h1 {
     font-size: 32px;
     font-family: Georgia, 'Times New Roman', Times, serif;
@@ -26,6 +30,18 @@ h2 {
     font-weight: bold;
     padding-left: 0.40rem;
     padding-top: 16px;
+}
+
+h3 {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    margin-top: 1.5rem;
+    font-size: 25px;
+}
+
+h4 {
+    margin-bottom: 1.5rem;
+    font-size: 20px;
+    font-weight: 200;
 }
 
 body>div.container-fluid {
@@ -88,8 +104,17 @@ body>div.container-fluid {
 
     .crop-img {
         position: relative;
-        min-height: 18rem;
         max-height: 18rem;
+        overflow: hidden;
+        vertical-align: middle;
+    }
+
+    .contain {
+        object-fit: contain;
+    }
+
+    .square-img {
+        position: relative;
         overflow: hidden;
         vertical-align: middle;
     }
@@ -151,4 +176,8 @@ body>div.container-fluid {
 
 .footercontainer {
     background-color: $color-yellow;
+}
+
+.brd {
+    border: 1px solid $color-black;
 }
