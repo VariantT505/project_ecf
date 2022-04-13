@@ -1,15 +1,46 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Formulaire de contact{% endblock %}
+{% block title %}Formulaire de contact
+{% endblock %}
 
 {% block body %}
 	{{ render(controller('App\\Controller\\NavbarController::etablissementAction' )) }}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-</div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-8 offset-sm-2 text-center">
+				<h1>Formulaire de contact</h1>
+			</div>
+		</div>
+		<br/>
+		<div class="row">
+			<div class="col-sm-3-half offset-sm-2">
+				{{ form_start(contactform) }}
+				{{ form_row(contactform.name) }}
+			</div>
+			<div class="col-sm-1"></div>
+			<div class="col-sm-3-half">
+				{{ form_row(contactform.firstName) }}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-3-half offset-sm-2">
+				{{ form_row(contactform.email) }}
+			</div>
+			<div class="col-sm-1"></div>
+			<div class="col-sm-3-half">
+				{{ form_row(contactform.subject) }}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-8 offset-sm-2">
+				{{ form_row(contactform.message) }}
+				<br/>
+				<button class="btn btn btn-outline-secondary" type="submit">Envoyer</button>
+				{{ form_end(contactform) }}
+			</div>
+		</div>
+	</div>
 
 	{{ render(controller('App\\Controller\\FooterController::etablissementAction' )) }}
 
