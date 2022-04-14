@@ -20,7 +20,7 @@
 									<th>Ville</th>
 									<th>Date d'arrivée</th>
 									<th>Date de départ</th>
-									<th>Actions</th>
+									<th>Annulation</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -31,14 +31,13 @@
 										<td>{{ reservation.suiid.etaid.city }}</td>
 										<td>{{ reservation.startdate ? reservation.startdate|date('d/m/Y') : '' }}</td>
 										<td>{{ reservation.endDate ? reservation.endDate|date('d/m/Y') : '' }}</td>
-										{% if date(reservation.startDate|date_modify("-3 day")) > date() %}
+										{% if date(reservation.startdate|date_modify("-3 day")) > date() %}
 											<td>
-												{# {{ include('reservation/_delete_form.html.twig') }} #}
+												{{ include('reservations/suppr.html.twig') }}
 											</td>
 										{% else %}
 											<td>
-												<p>Cette réservation ne peut plus être annulée.
-												</p>
+												Ne peut plus être annulée.
 											</td>
 										{% endif %}
 									</tr>

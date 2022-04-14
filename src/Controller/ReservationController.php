@@ -7,12 +7,10 @@ use App\Entity\Clients;
 use App\Entity\Reservations;
 use App\Repository\ResaRepo;
 use App\Form\ReservationType;
-use App\Repository\ClienRepo;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
 
 class ReservationController extends AbstractController
@@ -118,6 +116,6 @@ class ReservationController extends AbstractController
             $resaRepo->remove($reservations);
         }
 
-        return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_resa', [], Response::HTTP_SEE_OTHER);
     }
 }

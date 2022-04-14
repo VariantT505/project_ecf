@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('app_resa_del', {'id': reservation.resid}) }}" onsubmit="return confirm('Confirmez-vous cette annulation ?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ reservation.resid) }}">
+    <button class="btn btn-outline-secondary">X</button>
+</form>
