@@ -56,6 +56,16 @@ class Reservations
      */
     private $suiid;
 
+    /**
+     * @var \Etablissements
+     *
+     * @ORM\ManyToOne(targetEntity="Etablissements")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="etaid", referencedColumnName="etaid")
+     * })
+     */
+    private $etaid;
+
     public function getResid(): ?int
     {
         return $this->resid;
@@ -109,5 +119,16 @@ class Reservations
         return $this;
     }
 
+    public function getEtaid(): ?Etablissements
+    {
+        return $this->etaid;
+    }
+
+    public function setEtaid(?Etablissements $etaid): self
+    {
+        $this->etaid = $etaid;
+
+        return $this;
+    }
 
 }

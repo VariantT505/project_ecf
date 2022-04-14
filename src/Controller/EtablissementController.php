@@ -28,7 +28,7 @@ class EtablissementController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/new', name: 'app_reservation_new_r', methods: ['GET', 'POST'])]
+    #[Route('/{id}/new', name: 'app_resa_new', methods: ['GET', 'POST'])]
     public function newR(Request $request, ResaRepo $resaRepo, $id, Suites $suites): Response
     {
 
@@ -37,7 +37,7 @@ class EtablissementController extends AbstractController
 
         $suites->getSuiid($id);
         $etablissement = $suites->getEtaid();
-        $result = $resaRepo->findByHotelId($etablissement);
+        $result = $resaRepo->findByEtaId($etablissement);
 
         $r = count($result);
 
@@ -52,7 +52,7 @@ class EtablissementController extends AbstractController
                 $reservation->setUser($user);
                 $resaRepo->add($reservation);
 
-                return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_resa', [], Response::HTTP_SEE_OTHER);
             }
 
             return $this->renderForm('reservation/new.html.twig', [

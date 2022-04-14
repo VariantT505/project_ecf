@@ -6,7 +6,7 @@ use App\Entity\Suites;
 use App\Entity\Clients;
 use App\Entity\Reservations;
 use App\Repository\ResaRepo;
-use App\Form\ReservationType;
+use App\Form\ResaFormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,11 +19,21 @@ class ReservationController extends AbstractController
     public function show(#[CurrentUser] ?Clients $user, ResaRepo $resaRepo): Response
     {
         $user = $this->getUser();
-        $reservations = $resaRepo->findby(['cliid'=>$user]);
+        $reservations = $resaRepo->findby(['cliid' => $user]);
 
         return $this->render('reservations/index.html.twig', [
             'reservations' => $reservations
         ]);
+    }
+
+    #[Route(path: '/{id}', name: 'app_resa_del', methods: ['POST'])]
+    public function delete(Request $request, Reservations $reservations, ResaRepo $resaRepo): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $reservations->getResid(), $request->request->get('_token'))) {
+            $resaRepo->remove($reservations);
+        }
+
+        return $this->redirectToRoute('app_resa', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route(path: '/verif', name: 'app_resa_verif', methods: ['GET', 'POST'])]
@@ -56,66 +66,56 @@ class ReservationController extends AbstractController
         }
     }
 
-    #[Route(path: '/new', name: 'app_resa_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, ResaRepo $resaRepo): Response
-    {
-        $reservation = new Reservations();
-        $form = $this->createForm(ReservationType::class, $reservation);
-        $form->handleRequest($request);
-        $id = $this->getUser();
+    // #[Route(path: '/new', name: 'app_resa_new', methods: ['GET', 'POST'])]
+    // public function new(Request $request, ResaRepo $resaRepo): Response
+    // {
+    //     $reservations = new Reservations();
+    //     $form = $this->createForm(ResaFormType::class, $reservations);
+    //     $form->handleRequest($request);
+    //     $id = $this->getUser();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $reservation->setCliid($id);
-            $resaRepo->add($reservation);
+    //     if ($form->isSubmitted() && $form->isValid()) {
+    //         $reservations->setCliid($id);
+    //         $resaRepo->add($reservations);
 
-            return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
-        }
+    //         return $this->redirectToRoute('app_resa', [], Response::HTTP_SEE_OTHER);
+    //     }
 
-        return $this->renderForm('reservation/new.html.twig', [
-            'reservation' => $reservation,
-            'form' => $form,
-        ]);
-    }
+    //     return $this->renderForm('reservations/ajout.html.twig', [
+    //         'reservation' => $reservations,
+    //         'form' => $form,
+    //     ]);
+    // }
 
-    #[Route(path: '/{id}/new', name: 'app_resa_new_r', methods: ['GET', 'POST'])]
+    #[Route(path: '/{etaid}/{suiid}/new', name: 'app_resa_new', methods: ['GET', 'POST'])]
     public function newR(Request $request, ResaRepo $resaRepo, $id, Suites $suites): Response
     {
         $user = $this->getUser();
         $suites->getSuiid($id);
         $etablissement = $suites->getEtaid();
-        $result = $resaRepo->findByEtablissementId($etablissement);
+        $result = $resaRepo->findByetaid($etablissement);
         $r = count($result);
 
         if ($r < 1) {
             $reservation = new Reservations();
-            // $reservation->setEtaiid($etablissement);
+            $reservation->setEtaid($etablissement);
             $reservation->setSuiid($suites);
-            $form = $this->createForm(ReservationType::class, $reservation);
-            $form->handleRequest($request);
+            $form = $this->createForm(ResaFormType::class, $reservation);
+            $form->handleRequest($request);    
 
             if ($form->isSubmitted() && $form->isValid()) {
                 $reservation->setCliid($user);
                 $resaRepo->add($reservation);
 
-                return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_resa', [], Response::HTTP_SEE_OTHER);
             }
 
-            return $this->renderForm('reservation/new.html.twig', [
+            return $this->renderForm('reservations/ajout.html.twig', [
                 'reservation' => $reservation,
                 'form' => $form,
             ]);
         } else {
-            return $this->redirectToRoute('app_reservation_new', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_resa_new', [], Response::HTTP_SEE_OTHER);
         }
-    }
-
-    #[Route(path: '/{id}', name: 'app_resa_del', methods: ['POST'])]
-    public function delete(Request $request, Reservations $reservations, ResaRepo $resaRepo): Response
-    {
-        if ($this->isCsrfTokenValid('delete' . $reservations->getResid(), $request->request->get('_token'))) {
-            $resaRepo->remove($reservations);
-        }
-
-        return $this->redirectToRoute('app_resa', [], Response::HTTP_SEE_OTHER);
     }
 }
