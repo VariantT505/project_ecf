@@ -47,12 +47,4 @@ class ContactFormController extends AbstractController
             'contactform' => $form->createView()
         ]);
     }
-
-    // #[Route('/contact', name: 'app_contact_form')]
-    // public function index(): Response
-    // {
-    //     return $this->render('contact_form/contact.html.twig', [
-    //         'controller_name' => 'ContactFormController',
-    //     ]);
-    // }
 }

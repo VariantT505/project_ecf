@@ -17,14 +17,24 @@
 				<li class="nav-item mb-2">
 					<a href="/contact" class="nav-link p-0 text-muted">Contact</a>
 				</li>
-				<li class="nav-item mb-2">
-					<a href="/login" class="nav-link p-0 text-muted">Mon Compte</a>
-				</li>
+				{% if app.user %}
+					<li class="nav-item mb-2">
+						<a href="/admin" class="nav-link p-0 text-muted">Mon Compte</a>
+					</li>
+					<li class="nav-item mb-2">
+						<a href="{{ path('app_logout') }}" class="nav-link p-0 text-muted">Déconnexion</a>
+					</li>
+				{% else %}
+					<li class="nav-item mb-2">
+						<a href="/login" class="nav-link p-0 text-muted">Me connecter</a>
+					</li>
+				{% endif %}
+
 			</ul>
 		</div>
 
 		<div class="col">
-			<h5>Etablissements</h5>
+			<h5>Lieux</h5>
 			<ul class="nav flex-column">
 				{% for etablissement in etablissements %}
 					<li class="nav-item mb-2">
