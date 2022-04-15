@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Suites;
 use App\Entity\Clients;
+use App\Entity\Etablissements;
 use App\Entity\Reservations;
 use App\Repository\ResaRepo;
 use App\Form\ResaFormType;
@@ -66,56 +67,67 @@ class ReservationController extends AbstractController
         }
     }
 
-    // #[Route(path: '/new', name: 'app_resa_new', methods: ['GET', 'POST'])]
-    // public function new(Request $request, ResaRepo $resaRepo): Response
-    // {
-    //     $reservations = new Reservations();
-    //     $form = $this->createForm(ResaFormType::class, $reservations);
-    //     $form->handleRequest($request);
-    //     $id = $this->getUser();
-
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         $reservations->setCliid($id);
-    //         $resaRepo->add($reservations);
-
-    //         return $this->redirectToRoute('app_resa', [], Response::HTTP_SEE_OTHER);
-    //     }
-
-    //     return $this->renderForm('reservations/ajout.html.twig', [
-    //         'reservation' => $reservations,
-    //         'form' => $form,
-    //     ]);
-    // }
-
-    #[Route(path: '/{etaid}/{suiid}/new', name: 'app_resa_new', methods: ['GET', 'POST'])]
-    public function newR(Request $request, ResaRepo $resaRepo, $id, Suites $suites): Response
+    #[Route(path: '/{etaid}/{suiid}', name: 'app_resa_new', methods: ['GET', 'POST'])]
+    public function new(#[CurrentUser] ?Clients $user, Request $request, ResaRepo $resaRepo, Suites $suites, $suiid): Response
     {
         $user = $this->getUser();
-        $suites->getSuiid($id);
+        $suites->getSuiid($suiid);
         $etablissement = $suites->getEtaid();
-        $result = $resaRepo->findByetaid($etablissement);
-        $r = count($result);
 
-        if ($r < 1) {
-            $reservation = new Reservations();
-            $reservation->setEtaid($etablissement);
-            $reservation->setSuiid($suites);
-            $form = $this->createForm(ResaFormType::class, $reservation);
-            $form->handleRequest($request);    
+        $reservations = new Reservations();
+        $reservations->setEtaid($etablissement);
+        $reservations->setSuiid($suites);
+        $form = $this->createForm(ResaFormType::class, $reservations);
+        $form->handleRequest($request);
 
-            if ($form->isSubmitted() && $form->isValid()) {
-                $reservation->setCliid($user);
-                $resaRepo->add($reservation);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = $this->getUser();
+            $reservations->setCliid($user);
+            $resaRepo->add($reservations);
 
-                return $this->redirectToRoute('app_resa', [], Response::HTTP_SEE_OTHER);
-            }
-
-            return $this->renderForm('reservations/ajout.html.twig', [
-                'reservation' => $reservation,
-                'form' => $form,
-            ]);
-        } else {
-            return $this->redirectToRoute('app_resa_new', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_resa', [], Response::HTTP_SEE_OTHER);
         }
+
+        return $this->renderForm('reservations/ajout.html.twig', [
+            'reservation' => $reservations,
+            'form' => $form,
+            'etaid' => $etablissement->getEtaid(),
+            'suiid' => $suites->getSuiid(),
+        ]);
     }
+
+    // #[Route(path: '/{etaid}/{suiid}', name: 'app_resa_new', methods: ['GET', 'POST'])]
+    // public function newR(#[CurrentUser] ?Clients $user, $suiid, Request $request, ResaRepo $resaRepo, Suites $suites, Etablissements $etablissements): Response
+    // {
+    //     $user = $this->getUser();
+    //     $suites->getSuiid($suiid);
+    //     $etablissement = $suites->getEtaid();
+    //     $result = $resaRepo->findByEtaid($etablissement);
+    //     $r = count($result);
+
+    //     if ($r < 1) {
+    //         $reservation = new Reservations();
+    //         $reservation->setEtaid($etablissement);
+    //         $reservation->setSuiid($suites);
+    //         $form = $this->createForm(ResaFormType::class, $reservation);
+    //         $form->handleRequest($request);
+
+    //         if ($form->isSubmitted() && $form->isValid()) {
+    //             $reservation->setCliid($user);
+    //             $resaRepo->add($reservation);
+
+    //             return $this->redirectToRoute('app_resa', [], Response::HTTP_SEE_OTHER);
+    //         }
+
+    //         return $this->renderForm('reservations/ajout.html.twig', [
+    //             'reservation' => $reservation,
+    //             'form' => $form,
+    //         ]);
+    //     } else {
+    //         return $this->redirectToRoute('app_resa_new', [
+    //             'etaid' => $etablissements->getEtaid(),
+    //             'suiid' => $suites->getSuiid(),
+    //         ], Response::HTTP_SEE_OTHER);
+    //     }
+    // }
 }

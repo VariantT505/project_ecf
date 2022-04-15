@@ -20,90 +20,79 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ResaFormType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
-        $builder
+  public function buildForm(FormBuilderInterface $builder, array $options): void
+  {
+    $builder
 
-            ->add('startDate', DateType::class, [
-                'required' => true,
-                'widget' => 'single_text',
-                'label' => 'Date d\'arrivée : ',
-                'format' => 'yyyy-MM-dd',
-            ])
-            ->add('endDate', DateType::class, [
-                'required' => true,
-                'widget' => 'single_text',
-                'label' => 'Date de départ : ',
-                'format' => 'yyyy-MM-dd',
-            ])
-            ->add('etaid', EntityType::class, [
-                'class' => 'App\Entity\Etablissements',
-                'choice_label' => 'name',
-                'label' => 'Hotel : ',
-                'placeholder' => '- Choisir un établissement -',
-            ]);
+      ->add('etaid', EntityType::class, [
+        'class' => Etablissements::class,
+        'choice_label' => function ($etablissements) {
+          return  $etablissements->getName() . ' - ' . $etablissements->getCity();
+        },
+        'label' => "Etablissement souhaité : ",
+        'mapped' => true,
+      ])
+      ->add('suiid', EntityType::class, [
+        'class' => Suites::class,
+        'choice_label' => function ($suites) {
+          return  $suites->getTitle() . ' - ' . $suites->getPrice() . '€/nuit';
+        },
+        'label' => "Suite souhaitée : ",
+        'mapped' => true,
+        'disabled' => true,
+      ])
+      ->add('startDate', DateType::class, [
+        'required' => true,
+        'widget' => 'single_text',
+        'label' => 'Date d\'arrivée : ',
+        'format' => 'yyyy-MM-dd',
+      ])
+      ->add('endDate', DateType::class, [
+        'required' => true,
+        'widget' => 'single_text',
+        'label' => 'Date de départ : ',
+        'format' => 'yyyy-MM-dd',
+      ]);
 
-    //         $formModifier = function (FormInterface $form, Etablissements $etablissements = null) {
-    //             $suites = null === $etablissements ? [] : $etablissements->getAvailableSuite();
+    // $formModifier = function (FormInterface $form, Etablissements $etablissement = null) {
+    //   $suite = null === $etablissement ? [] : $etablissement->getSuiid();
 
-    //         $form->add('suiid',EntityType::class, [
-    //                 'class' => 'App\Entity\Suites',
-    //                 'choice_label' => 'title',
-    //                 'choices' => $suites,
-    //                 'placeholder' => '- Choisir une suite -',
-    //                 'label' => 'Suites : ',
-    //                 'disabled' => $etablissements === null
-    //             ]);
+    //   $form->add('suite', EntityType::class, [
+    //     'class' => Suites::class,
+    //     'choice_label' => 'title',
+    //     'choices' => $suite,
+    //     'placeholder' => '- Choisir une suite -',
+    //     'label' => 'Suites : '
+    //   ]);
     // };
 
-        // $builder->addEventListener(
-        //     FormEvents::PRE_SET_DATA,
-        //     function (FormEvent $event) use ($formModifier) {
-        // //         // this would be your entity, i.e. SportMeetup
-        //         $data = $event->getData();
-        //         $formModifier($event->getForm(), $data->getsuiid());
-        //     }
-        // );
+    $builder->addEventListener(
+      FormEvents::PRE_SET_DATA,
+      function (FormEvent $event) use ($SuitesRepo){
+        $data = $event->getData()['Etaid'];
+        $formModifier($event->getForm(), $data->getEtaid());
+      }
+    );
 
-        $builder->get('etaid')->addEventListener(
-            FormEvents::POST_SUBMIT,
-            function (FormEvent $event) {
-              $form = $event->getForm();
-              $this->addSuites($form->getParent(), $form->getData());
-            }
-          );
-        }
+    $builder->get('etaid')->addEventListener(
+      FormEvents::POST_SUBMIT,
+      function (FormEvent $event) use ($formModifier) {
+        // It's important here to fetch $event->getForm()->getData(), as
+        // $event->getData() will get you the client data (that is, the ID)
+        $etaid = $event->getForm()->getData();
 
-          private function addSuites(FormInterface $form, ?Etablissements $etablissements)
-{
-  $builder = $form->getConfig()->getFormFactory()->createNamedBuilder(
-    'suiid',
-    EntityType::class,
-    null,
-    [
-      'class'           => 'AppBundle\Entity\Suites',
-      'placeholder'     => $etablissements ? 'Sélectionnez votre département' : 'Sélectionnez votre région',
-      'mapped'          => false,
-      'required'        => false,
-      'auto_initialize' => false,
-      'choices'         => $etablissements ? $etablissements->getsuiid() : []
-    ]
-  );
 
-        // $builder->get('etaid')->addEventListener(
-        //     FormEvents::POST_SUBMIT,
-        //     function (FormEvent $event) use ($formModifier) {
-        //         $etablissements = $event->getForm()->getData();
-        //         $formModifier($event->getForm()->getParent(), $etablissements);
-        //     }
-        // );
-    }
+        // since we've added the listener to the child, we'll have to pass on
+        // the parent to the callback functions!
+        $formModifier($event->getForm()->getParent(), $etaid);
+      }
+    );
+  }
 
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setDefaults([
-            'data_class' => Reservations::class,
-        ]);
-    }
-
+  public function configureOptions(OptionsResolver $resolver): void
+  {
+    $resolver->setDefaults([
+      'data_class' => Reservations::class,
+    ]);
+  }
 }

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EtablRepo;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -97,6 +99,31 @@ class Etablissements implements UserInterface, PasswordAuthenticatedUserInterfac
      * })
      */
     private $admid;
+
+    /**
+     * @var \Suites
+     *
+     * @ORM\OneToMany(targetEntity="Suites", mappedBy="Etablissements")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="etaid", referencedColumnName="etaid")
+     * })
+     */
+    private $suiid;
+
+    /**
+     * @var \Reservations
+     *
+     * @ORM\OneToMany(targetEntity="Reservations", mappedBy="Etablissements")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="resid", referencedColumnName="resid")
+     * })
+     */
+    private $resid;
+
+    public function __construct()
+    {
+        $this->suiid = new ArrayCollection();
+    }
 
     public function getEtaid(): ?int
     {
@@ -248,5 +275,34 @@ class Etablissements implements UserInterface, PasswordAuthenticatedUserInterfac
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+        /**
+     * @return Collection<int, Suites>
+     */
+    public function getSuiid(): Collection
+    {
+        return $this->suiid;
+    }
+
+    public function addSuiid(Suites $suiid): self
+    {
+        if (!$this->suiid->contains($suiid)) {
+            $this->suiid[] = $suiid;
+            $suiid->setEtaid($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSuiid(Suites $suiid): self
+    {
+        if ($this->suiid->removeElement($suiid)) {
+            // set the owning side to null (unless already changed)
+            if ($suiid->getEtaid() === $this) {
+                $suiid->setEtaid(null);
+            }
+        }
+
+        return $this;
     }
 }

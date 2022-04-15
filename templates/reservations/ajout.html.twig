@@ -6,6 +6,8 @@
 {% block body %}
 	{{ render(controller('App\\Controller\\NavbarController::etablissementAction' )) }}
 
+Choisissez vos dates de voyage. 
+
 	<div class="container-fluid">
 		<div class="row my-5">
 			{% if (is_granted('ROLE_USER')) or (is_granted('ROLE_GERANT'))  or (is_granted('ROLE_ADMIN')) %}
@@ -14,7 +16,7 @@
 					{{ form_row(form.startDate) }}
 					{{ form_row(form.endDate) }}
 					{{ form_row(form.etaid) }}
-					{# {{ form_row(form.suiid) }} #}
+					{{ form_row(form.suiid) }}
 					<span class="check_ok"></span>
 					<span class="check_false"></span>
 					<button id="hide" class="btn btn-primary">{{ button_label|default('Réserver') }}</button>
