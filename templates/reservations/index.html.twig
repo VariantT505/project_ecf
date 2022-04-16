@@ -20,6 +20,7 @@
 									<th>Ville</th>
 									<th>Date d'arrivée</th>
 									<th>Date de départ</th>
+									<th>Tarif</th>
 									<th>Annulation</th>
 								</tr>
 							</thead>
@@ -31,6 +32,7 @@
 										<td>{{ reservation.suiid.etaid.city }}</td>
 										<td>{{ reservation.startdate ? reservation.startdate|date('d/m/Y') : '' }}</td>
 										<td>{{ reservation.endDate ? reservation.endDate|date('d/m/Y') : '' }}</td>
+										<td>{{ (reservation.suiid.price | number_format(2))*((reservation.endDate | date('U') - reservation.startDate | date('U'))/86400) }}€</td>
 										{% if date(reservation.startdate|date_modify("-3 day")) > date() %}
 											<td>
 												{{ include('reservations/suppr.html.twig') }}

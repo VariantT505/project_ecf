@@ -55,27 +55,27 @@ class ResaFormType extends AbstractType
         'format' => 'yyyy-MM-dd',
       ]);
 
-      $formModifier = function(FormInterface $form, Etablissements $etablissements = null){
-        $suites = (null === $etablissements) ? [] : $etablissements->getSuiid();
+      // $formModifier = function(FormInterface $form, Etablissements $etablissements = null){
+      //   $suites = (null === $etablissements) ? [] : $etablissements->getSuiid();
 
-        $form->add('suiid', EntityType::class, [
-          'class' => Suites::class,
-          'choices' => $suites,
-          'choice_label' => function ($suites) {
-            return  $suites->getTitle() . ' - ' . $suites->getPrice() . '€/nuit';
-          },
-          'label' => "Suite souhaitée : ",
-          'mapped' => true,
-        ]);
-      };
+      //   $form->add('suiid', EntityType::class, [
+      //     'class' => Suites::class,
+      //     'choices' => $suites,
+      //     'choice_label' => function ($suites) {
+      //       return  $suites->getTitle() . ' - ' . $suites->getPrice() . '€/nuit';
+      //     },
+      //     'label' => "Suite souhaitée : ",
+      //     'mapped' => true,
+      //   ]);
+      // };
 
-      $builder->get('etaid')->addEventListener(
-        FormEvents::POST_SUBMIT,
-        function (FormEvent $event) use ($formModifier) {
-          $etablissements = $event->getForm()->getData();
-          $formModifier($event->getForm()->getParent(), $etablissements);
-        }
-      )
+      // $builder->get('etaid')->addEventListener(
+      //   FormEvents::POST_SUBMIT,
+      //   function (FormEvent $event) use ($formModifier) {
+      //     $etablissements = $event->getForm()->getData();
+      //     $formModifier($event->getForm()->getParent(), $etablissements);
+      //   }
+      // )
 
       // $builder->addEventListener(
       //   FormEvents::PRE_SET_DATA,

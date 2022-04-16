@@ -45,6 +45,27 @@ class ResaRepo extends ServiceEntityRepository
         }
     }
 
+    public function findExistingReservation($etablissements, $suites, $start, $end)
+    {
+        $qb = $this->createQueryBuilder('r')
+            ->innerJoin('r.etaid', 'e')
+            ->innerJoin('r.suiid', 's')
+            ->where('e = :etaid')
+            ->andWhere('s = :suiid')
+            ->andWhere('
+                (r.startdate BETWEEN :startDateFrom AND :startDateTo) OR 
+                (r.enddate BETWEEN :endDateFrom AND :endDateTo) OR
+                (r.startdate < :startDateFrom AND r.enddate > :endDateTo)
+                ')
+            ->setParameter('etaid', $etablissements)
+            ->setParameter('suiid', $suites)
+            ->setParameter('startDateFrom', $start)
+            ->setParameter('startDateTo', $end)
+            ->setParameter('endDateFrom', $start)
+            ->setParameter('endDateTo', $end);
+        return $qb->getQuery()->getResult();
+     }
+
     // /**
     //  * @return Reservations[] Returns an array of Reservations objects
     //  */
