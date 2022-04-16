@@ -20,9 +20,30 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ResaFormType extends AbstractType
 {
+  private $suitesRepo;
+
+  public function __construct(SuitesRepo $suitesRepo)
+  {
+    $this->suitesRepo = $suitesRepo;
+  }
+
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
     $builder
+
+    ->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) {
+      $etaid = $event->getData() ?? null;
+      
+      $suiid = $etaid === null ? [] : $this->suitesRepo->findby($etaid, ['name', 'ASC']);
+
+    $event->getForm()->add('suiid', EntityType::class, [
+      'class' => Suites::class,
+      'choice_label' => function ($suites) {
+        return  $suites->getTitle() . ' - ' . $suites->getPrice() . '€/nuit';
+      },
+      'label' => "Suite souhaitée : ",
+      'mapped' => true,
+    ])
 
       ->add('etaid', EntityType::class, [
         'class' => Etablissements::class,
@@ -31,15 +52,6 @@ class ResaFormType extends AbstractType
         },
         'label' => "Etablissement souhaité : ",
         'mapped' => true,
-      ])
-      ->add('suiid', EntityType::class, [
-        'class' => Suites::class,
-        'choice_label' => function ($suites) {
-          return  $suites->getTitle() . ' - ' . $suites->getPrice() . '€/nuit';
-        },
-        'label' => "Suite souhaitée : ",
-        'mapped' => true,
-        'disabled' => true,
       ])
       ->add('startDate', DateType::class, [
         'required' => true,
@@ -54,6 +66,32 @@ class ResaFormType extends AbstractType
         'format' => 'yyyy-MM-dd',
       ]);
 
+      // $builder->addEventListener(
+      //   FormEvents::PRE_SET_DATA,
+      //   function (FormEvent $event) use ($SuitesRepo){
+      //     $data = $event->getData()['Etaid'] ?? null;
+      //     $form->add(
+      //       'suite', EntityType::class, [
+      //         'class' => Suites::class,
+      //         'choice_label' => 'title',
+      //         'choices' => $data,
+      //         'placeholder' => '- Choisir une suite -',
+      //         'label' => 'Suites : ',
+      //         'query_builder' => function (SuitesRepo $suitesRepo) use ($suite) {
+      //           return $suitesRepo->createQueryBuilder('s')->andWhere('s.etaid = :etaid')->setParameter('etaid', $etaid);
+      //         }
+      //       ]);
+      });
+
+    //   $builder->addEventListener(
+    //     FormEvents::PRE_SET_DATA,
+    //     function (FormEvent $event) use ($formModifier) {
+    //         // this would be your entity, i.e. SportMeetup
+    //         $data = $event->getData();
+    //         $formModifier($event->getForm(), $data->getHotel());
+    //     }
+    // );
+
     // $formModifier = function (FormInterface $form, Etablissements $etablissement = null) {
     //   $suite = null === $etablissement ? [] : $etablissement->getSuiid();
 
@@ -66,27 +104,19 @@ class ResaFormType extends AbstractType
     //   ]);
     // };
 
-    $builder->addEventListener(
-      FormEvents::PRE_SET_DATA,
-      function (FormEvent $event) use ($SuitesRepo){
-        $data = $event->getData()['Etaid'];
-        $formModifier($event->getForm(), $data->getEtaid());
-      }
-    );
-
-    $builder->get('etaid')->addEventListener(
-      FormEvents::POST_SUBMIT,
-      function (FormEvent $event) use ($formModifier) {
-        // It's important here to fetch $event->getForm()->getData(), as
-        // $event->getData() will get you the client data (that is, the ID)
-        $etaid = $event->getForm()->getData();
+    // $builder->get('etaid')->addEventListener(
+    //   FormEvents::POST_SUBMIT,
+    //   function (FormEvent $event) use ($formModifier) {
+    //     // It's important here to fetch $event->getForm()->getData(), as
+    //     // $event->getData() will get you the client data (that is, the ID)
+    //     $etaid = $event->getForm()->getData();
 
 
         // since we've added the listener to the child, we'll have to pass on
         // the parent to the callback functions!
-        $formModifier($event->getForm()->getParent(), $etaid);
-      }
-    );
+    //     $formModifier($event->getForm()->getParent(), $etaid);
+    //   }
+    // );
   }
 
   public function configureOptions(OptionsResolver $resolver): void

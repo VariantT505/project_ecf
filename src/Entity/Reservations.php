@@ -130,5 +130,9 @@ class Reservations
 
         return $this;
     }
+    public function __toString(): string
+    {
+        return $this->getEtaid();
+    }
 
 }

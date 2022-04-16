@@ -305,4 +305,9 @@ class Etablissements implements UserInterface, PasswordAuthenticatedUserInterfac
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->getName();
+    }
 }

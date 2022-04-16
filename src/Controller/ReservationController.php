@@ -4,15 +4,22 @@ namespace App\Controller;
 
 use App\Entity\Suites;
 use App\Entity\Clients;
-use App\Entity\Etablissements;
+use App\Form\ResaFormType;
 use App\Entity\Reservations;
 use App\Repository\ResaRepo;
-use App\Form\ResaFormType;
+use App\Repository\EtablRepo;
+use App\Entity\Etablissements;
+use App\Repository\SuitesRepo;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Contracts\EventDispatcher\Event;
 
 class ReservationController extends AbstractController
 {
@@ -67,6 +74,83 @@ class ReservationController extends AbstractController
         }
     }
 
+    // #[Route(path: '/{etaid}/{suiid}', name: 'app_resa_new', methods: ['GET', 'POST'])]
+    // public function new(#[CurrentUser] ?Clients $user, Request $request, ResaRepo $resaRepo, SuitesRepo $suitesRepo, EtablRepo $etablRepo, Suites $suites, $suiid): Response
+    // {
+    //     $user = $this->getUser();
+    //     $suites->getSuiid($suiid);
+    //     $etablissement = $suites->getEtaid();
+
+    //     $reservations = new Reservations();
+    //     $reservations->setEtaid($etablissement);
+    //     $reservations->setSuiid($suites);
+
+    //     $form = $this->createFormBuilder(Etablissements::class)
+    //     ->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) use ($suitesRepo) {
+    //         $etablissements = $event->getData('etaid') ?? null;
+    //         $suite = $etablissements === null ? [] : $suitesRepo->createQueryBuilder('s')
+    //         ->andWhere('s.etaid = :etablissements')
+    //         ->setParameter('etablissements', $etablissements)
+    //         ->getQuery()
+    //         ->getResult();
+    //         $event->getForm()->add('suiid', EntityType::class, [
+    //             'class' => Suites::class,
+    //             'choice_label' => function ($suite) {
+    //               return  $suite->getTitle() . ' - ' . $suite->getPrice() . '€/nuit';
+    //             },
+    //             'label' => "Suite souhaitée : ",
+    //             'mapped' => true,
+    //           ]);
+    //     })
+    //     ->add('etaid', EntityType::class, [
+    //         'class' => Etablissements::class,
+    //         'choice_label' => function ($etablissements) {
+    //           return  $etablissements->getName() . ' - ' . $etablissements->getCity();
+    //         },
+    //         'label' => "Etablissement souhaité : ",
+    //         'mapped' => true,
+    //       ])
+    //     //   ->add('suiid', EntityType::class, [
+    //     //     'class' => Suites::class,
+    //     //     'choice_label' => function ($suites) {
+    //     //       return  $suites->getTitle() . ' - ' . $suites->getPrice() . '€/nuit';
+    //     //     },
+    //     //     'label' => "Suite souhaitée : ",
+    //     //     'mapped' => true,
+    //     //     'disabled' => true,
+    //     //   ])
+    //       ->add('startDate', DateType::class, [
+    //         'required' => true,
+    //         'widget' => 'single_text',
+    //         'label' => 'Date d\'arrivée : ',
+    //         'format' => 'yyyy-MM-dd',
+    //       ])
+    //       ->add('endDate', DateType::class, [
+    //         'required' => true,
+    //         'widget' => 'single_text',
+    //         'label' => 'Date de départ : ',
+    //         'format' => 'yyyy-MM-dd',
+    //       ])
+    //       ->getform();
+
+    //     $form->handleRequest($request);
+
+    //     if ($form->isSubmitted() && $form->isValid()) {
+    //         $user = $this->getUser();
+    //         $reservations->setCliid($user);
+    //         $resaRepo->add($reservations);
+
+    //         return $this->redirectToRoute('app_resa', [], Response::HTTP_SEE_OTHER);
+    //     }
+
+    //     return $this->renderForm('reservations/ajout.html.twig', [
+    //         'reservation' => $reservations,
+    //         'form' => $form,
+    //         'etaid' => $etablissement->getEtaid(),
+    //         'suiid' => $suites->getSuiid(),
+    //     ]);
+    // }
+    
     #[Route(path: '/{etaid}/{suiid}', name: 'app_resa_new', methods: ['GET', 'POST'])]
     public function new(#[CurrentUser] ?Clients $user, Request $request, ResaRepo $resaRepo, Suites $suites, $suiid): Response
     {
