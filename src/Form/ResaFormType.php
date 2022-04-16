@@ -17,34 +17,13 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Contracts\EventDispatcher\Event;
 
 class ResaFormType extends AbstractType
 {
-  private $suitesRepo;
-
-  public function __construct(SuitesRepo $suitesRepo)
-  {
-    $this->suitesRepo = $suitesRepo;
-  }
-
   public function buildForm(FormBuilderInterface $builder, array $options): void
   {
     $builder
-
-    ->addEventListener(FormEvents::PRE_SET_DATA, function(FormEvent $event) {
-      $etaid = $event->getData() ?? null;
-      
-      $suiid = $etaid === null ? [] : $this->suitesRepo->findby($etaid, ['name', 'ASC']);
-
-    $event->getForm()->add('suiid', EntityType::class, [
-      'class' => Suites::class,
-      'choice_label' => function ($suites) {
-        return  $suites->getTitle() . ' - ' . $suites->getPrice() . '€/nuit';
-      },
-      'label' => "Suite souhaitée : ",
-      'mapped' => true,
-    ])
-
       ->add('etaid', EntityType::class, [
         'class' => Etablissements::class,
         'choice_label' => function ($etablissements) {
@@ -52,6 +31,16 @@ class ResaFormType extends AbstractType
         },
         'label' => "Etablissement souhaité : ",
         'mapped' => true,
+        'disabled' => true,
+        ])
+      ->add('suiid', EntityType::class, [
+        'class' => Suites::class,
+        'choice_label' => function ($suites) {
+          return  $suites->getTitle() . ' - ' . $suites->getPrice() . '€/nuit';
+        },
+        'label' => "Suite souhaitée : ",
+        'mapped' => true,
+        'disabled' => true,
       ])
       ->add('startDate', DateType::class, [
         'required' => true,
@@ -65,6 +54,28 @@ class ResaFormType extends AbstractType
         'label' => 'Date de départ : ',
         'format' => 'yyyy-MM-dd',
       ]);
+
+      $formModifier = function(FormInterface $form, Etablissements $etablissements = null){
+        $suites = (null === $etablissements) ? [] : $etablissements->getSuiid();
+
+        $form->add('suiid', EntityType::class, [
+          'class' => Suites::class,
+          'choices' => $suites,
+          'choice_label' => function ($suites) {
+            return  $suites->getTitle() . ' - ' . $suites->getPrice() . '€/nuit';
+          },
+          'label' => "Suite souhaitée : ",
+          'mapped' => true,
+        ]);
+      };
+
+      $builder->get('etaid')->addEventListener(
+        FormEvents::POST_SUBMIT,
+        function (FormEvent $event) use ($formModifier) {
+          $etablissements = $event->getForm()->getData();
+          $formModifier($event->getForm()->getParent(), $etablissements);
+        }
+      )
 
       // $builder->addEventListener(
       //   FormEvents::PRE_SET_DATA,
@@ -81,7 +92,7 @@ class ResaFormType extends AbstractType
       //           return $suitesRepo->createQueryBuilder('s')->andWhere('s.etaid = :etaid')->setParameter('etaid', $etaid);
       //         }
       //       ]);
-      });
+      ;
 
     //   $builder->addEventListener(
     //     FormEvents::PRE_SET_DATA,

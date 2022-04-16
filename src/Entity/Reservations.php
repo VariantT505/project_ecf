@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Etablissements;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -129,10 +130,6 @@ class Reservations
         $this->etaid = $etaid;
 
         return $this;
-    }
-    public function __toString(): string
-    {
-        return $this->getEtaid();
     }
 
 }
