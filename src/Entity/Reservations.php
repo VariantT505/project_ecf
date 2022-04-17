@@ -60,7 +60,7 @@ class Reservations
     /**
      * @var \Etablissements
      *
-     * @ORM\ManyToOne(targetEntity="Etablissements")
+     * @ORM\ManyToOne(targetEntity="Etablissements", inversedBy="resid")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="etaid", referencedColumnName="etaid")
      * })

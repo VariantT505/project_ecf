@@ -81,7 +81,7 @@ class Suites
     /**
      * @var \Etablissements
      *
-     * @ORM\ManyToOne(targetEntity="Etablissements")
+     * @ORM\ManyToOne(targetEntity="Etablissements", inversedBy="suiid")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="etaid", referencedColumnName="etaid")
      * })

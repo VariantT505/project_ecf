@@ -14,6 +14,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Reservations[]    findAll()
  * @method Reservations[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
+
 class ResaRepo extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)

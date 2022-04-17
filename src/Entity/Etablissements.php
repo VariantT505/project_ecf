@@ -103,7 +103,7 @@ class Etablissements implements UserInterface, PasswordAuthenticatedUserInterfac
     /**
      * @var \Suites
      *
-     * @ORM\OneToMany(targetEntity="Suites", mappedBy="Etablissements")
+     * @ORM\OneToMany(targetEntity="Suites", mappedBy="etaid")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="etaid", referencedColumnName="etaid")
      * })
@@ -113,7 +113,7 @@ class Etablissements implements UserInterface, PasswordAuthenticatedUserInterfac
     /**
      * @var \Reservations
      *
-     * @ORM\OneToMany(targetEntity="Reservations", mappedBy="Etablissements")
+     * @ORM\OneToMany(targetEntity="Reservations", mappedBy="etaid")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="resid", referencedColumnName="resid")
      * })

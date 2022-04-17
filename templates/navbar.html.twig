@@ -27,7 +27,7 @@
 					</ul>
 					{% if is_granted('ROLE_USER') %}
 						<div class="d-flex">
-							<a class="btn btn-outline-secondary" href="/reservation" role="button">Mon compte</a>&nbsp;<a href="{{ path('app_logout') }}" class="btn btn-outline-secondary">Déconnexion</a>
+							<a class="btn btn-outline-secondary" href="/compte" role="button">Mon compte</a>&nbsp;<a href="{{ path('app_logout') }}" class="btn btn-outline-secondary">Déconnexion</a>
 						{% elseif is_granted('ROLE_ADMIN') %}
 							<div class="d-flex">
 								<a class="btn btn-outline-secondary" href="/admin" role="button">Mon compte</a>&nbsp;<a href="{{ path('app_logout') }}" class="btn btn-outline-secondary">Déconnexion</a>

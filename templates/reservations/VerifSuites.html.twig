@@ -1,0 +1,10 @@
+<h3 class="text-center">Cette suite est disponible à ces dates !</h3>
+<p class="text-center">Vous pouvez désormais confirmer votre réservation ci-dessous</p>
+<br/>
+<p>Le montant total de votre séjour est de
+	{{ (data.suiid.price | number_format(2))*((data.endDate | date('U') - data.startDate | date('U'))/86400) }}€ et sera à régler à l'accueil lors de votre arrivée.</p>
+<p>Cette réservation peut être annulée gratuitement à tout moment depuis votre compte jusqu'à 3 jours avant votre arrivée.</p>
+<p>Nous vous invitons à respecter ces horaires :<br/>
+Check-in : à partir de 14h le jour de votre arrivée.<br>
+Check-out : avant 12h le jour de votre départ.</p>
+	<a class="btn btn-outline-secondary" id="confirm_final" href="{{ path('app_reservation_confirm') }}">Confirmer cette réservation</a>

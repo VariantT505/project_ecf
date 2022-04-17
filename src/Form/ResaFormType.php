@@ -29,18 +29,24 @@ class ResaFormType extends AbstractType
         'choice_label' => function ($etablissements) {
           return  $etablissements->getName() . ' - ' . $etablissements->getCity();
         },
-        'label' => "Etablissement souhaité : ",
+        'label' => "Etablissement : ",
         'mapped' => true,
         'disabled' => true,
+        'attr' => [
+          'class' => 'form-control'
+      ],
         ])
       ->add('suiid', EntityType::class, [
         'class' => Suites::class,
         'choice_label' => function ($suites) {
           return  $suites->getTitle() . ' - ' . $suites->getPrice() . '€/nuit';
         },
-        'label' => "Suite souhaitée : ",
+        'label' => "Suite : ",
         'mapped' => true,
         'disabled' => true,
+        'attr' => [
+          'class' => 'form-control'
+      ],
       ])
       ->add('startDate', DateType::class, [
         'required' => true,
