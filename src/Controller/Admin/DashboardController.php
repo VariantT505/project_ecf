@@ -13,10 +13,7 @@ use App\Entity\Etablissements;
 use App\Entity\Suites;
 use App\Entity\Clients;
 use App\Entity\Reservations;
-use App\Repository\SuitesRepo;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
-use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
-
 
 class DashboardController extends AbstractDashboardController
 {

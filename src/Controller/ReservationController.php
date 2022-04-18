@@ -3,31 +3,17 @@
 namespace App\Controller;
 
 use App\Entity\Suites;
-use App\Form\ResaFormType;
 use App\Entity\Reservations;
 use App\Entity\Clients;
 use App\Form\ReservationType;
 use App\Repository\ResaRepo;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Address;
-use Symfony\Component\Mime\Email;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Contracts\EventDispatcher\Event;
-use App\Repository\EtablRepo;
-use App\Entity\Etablissements;
-use App\Repository\SuitesRepo;
 
 class ReservationController extends AbstractController
 {
@@ -137,9 +123,5 @@ class ReservationController extends AbstractController
         };
 
         return $this->redirectToRoute('app_resa');
-
-        // return $this->render('reservations/reservationConfirm.html.twig', [
-        //     'data' => $data
-        // ]);
     }
 }
