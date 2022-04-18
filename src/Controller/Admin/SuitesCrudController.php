@@ -2,9 +2,11 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Etablissements;
 use App\Entity\Suites;
 use App\Repository\EtablRepo;
 use Doctrine\ORM\QueryBuilder;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
@@ -20,7 +22,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class SuitesCrudController extends AbstractCrudController
 {
-    public const SUITE_BASE_PATH = 'images/suites';
+    public const SUITE_BASE_PATH = '/images/suites';
     public const SUITE_UPLOAD_DIR = 'public/images/suites';
 
 
@@ -58,15 +60,22 @@ class SuitesCrudController extends AbstractCrudController
             ->setBasePath(self::SUITE_BASE_PATH)
             ->setUploadDir(self::SUITE_UPLOAD_DIR),
             TextField::new('bookingurl', 'Lien Booking.com'),
-            // AssociationField::new('etaid', 'Nom de l\'établissement')
-            // ->hideOnIndex()
+            AssociationField::new('etaid', 'Nom de l\'établissement')
+            ->hideOnIndex(),
             // ->autocomplete(),
-            AssociationField::new('etaid', 'Nom de l\'établissement')->setQueryBuilder(
-                fn (QueryBuilder $queryBuilder) => $queryBuilder->getEntityManager()->getRepository(EtablRepo::class)->findByEtaid()
-            )
-            ->hideOnIndex()
-            ->autocomplete(),
+            // AssociationField::new('etaid', 'Nom de l\'établissement')->setQueryBuilder(
+            //     fn (QueryBuilder $queryBuilder) => $queryBuilder->getEntityManager()->getRepository(Etablissements::class)->findByEtaid()
+            // )
+            // ->hideOnIndex(),
         ];
+    }
+
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setEntityLabelInSingular('Suite')
+            ->setEntityLabelInPlural('Suites')
+            ->setSearchFields(['suiid', 'title']);
     }
 
     public function configureActions(Actions $actions): Actions

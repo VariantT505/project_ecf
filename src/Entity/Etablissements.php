@@ -119,7 +119,7 @@ class Etablissements implements UserInterface, PasswordAuthenticatedUserInterfac
      *
      * @ORM\OneToMany(targetEntity="Suites", mappedBy="etaid")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="etaid", referencedColumnName="etaid")
+     *   @ORM\JoinColumn(name="suiid", referencedColumnName="suiid")
      * })
      */
     private $suiid;
