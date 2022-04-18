@@ -62,6 +62,15 @@ class EtablRepo extends ServiceEntityRepository implements PasswordUpgraderInter
         $this->_em->flush();
     }
 
+    public function setNewPassword(PasswordAuthenticatedUserInterface $user, string $plainPassword): void
+{
+
+    $hashedPassword = $this->hasher->hashPassword($user, $plainPassword);
+    $user->setPassword($hashedPassword);
+    $this->_em->persist($user);
+    $this->_em->flush();
+}
+
     // /**
     //  * @return Etablissements[] Returns an array of Etablissements objects
     //  */

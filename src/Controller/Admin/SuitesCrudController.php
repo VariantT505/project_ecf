@@ -3,22 +3,24 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Suites;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use App\Repository\EtablRepo;
 use Doctrine\ORM\QueryBuilder;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class SuitesCrudController extends AbstractCrudController
 {
-    public const SUITE_BASE_PATH = '/';
+    public const SUITE_BASE_PATH = 'images/suites';
     public const SUITE_UPLOAD_DIR = 'public/images/suites';
 
 
@@ -43,19 +45,27 @@ class SuitesCrudController extends AbstractCrudController
             TextField::new('title', 'Nom de la suite'),
             ImageField::new('featuredimage', 'Photo principale')
             ->setBasePath(self::SUITE_BASE_PATH)
-            ->setUploadDir(self::SUITE_BASE_PATH),
+            ->setUploadDir(self::SUITE_UPLOAD_DIR),
             TextareaField::new('description', 'Description')->hideOnIndex(),
             IntegerField::new('price', 'Tarif/nuit'),
             ImageField::new('galleryone', 'Illustration 1')->hideOnIndex()
             ->setBasePath(self::SUITE_BASE_PATH)
-            ->setUploadDir(self::SUITE_BASE_PATH),
+            ->setUploadDir(self::SUITE_UPLOAD_DIR),
             ImageField::new('gallerytwo', 'Illustration 2')->hideOnIndex()
             ->setBasePath(self::SUITE_BASE_PATH)
-            ->setUploadDir(self::SUITE_BASE_PATH),
+            ->setUploadDir(self::SUITE_UPLOAD_DIR),
             ImageField::new('gallerythree', 'Illustration 3')->hideOnIndex()
             ->setBasePath(self::SUITE_BASE_PATH)
-            ->setUploadDir(self::SUITE_BASE_PATH),
+            ->setUploadDir(self::SUITE_UPLOAD_DIR),
             TextField::new('bookingurl', 'Lien Booking.com'),
+            // AssociationField::new('etaid', 'Nom de l\'établissement')
+            // ->hideOnIndex()
+            // ->autocomplete(),
+            AssociationField::new('etaid', 'Nom de l\'établissement')->setQueryBuilder(
+                fn (QueryBuilder $queryBuilder) => $queryBuilder->getEntityManager()->getRepository(EtablRepo::class)->findByEtaid()
+            )
+            ->hideOnIndex()
+            ->autocomplete(),
         ];
     }
 

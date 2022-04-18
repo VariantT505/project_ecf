@@ -34,6 +34,20 @@ class Etablissements implements UserInterface, PasswordAuthenticatedUserInterfac
      */
     private $roles = 'ROLE_GERANT';
 
+        /**
+     * @var string|null
+     *
+     * @ORM\Column(name="gerantname", type="string", length=255, nullable=true)
+     */
+    private $gerantname;
+
+        /**
+     * @var string|null
+     *
+     * @ORM\Column(name="gerantfirstname", type="string", length=255, nullable=true)
+     */
+    private $gerantfirstname;
+
     /**
      * @var string|null
      *
@@ -128,6 +142,30 @@ class Etablissements implements UserInterface, PasswordAuthenticatedUserInterfac
     public function getEtaid(): ?int
     {
         return $this->etaid;
+    }
+
+    public function getGerantname(): ?string
+    {
+        return $this->gerantname;
+    }
+
+    public function setGerantname(?string $gerantname): self
+    {
+        $this->gerantname = $gerantname;
+
+        return $this;
+    }
+
+    public function getGerantfirstname(): ?string
+    {
+        return $this->gerantfirstname;
+    }
+
+    public function setGerantfirstname(?string $gerantfirstname): self
+    {
+        $this->gerantfirstname = $gerantfirstname;
+
+        return $this;
     }
 
     public function getName(): ?string
@@ -242,6 +280,17 @@ class Etablissements implements UserInterface, PasswordAuthenticatedUserInterfac
         $this->email = $email;
 
         return $this;
+    }
+
+    private ?string $plainPassword= '';
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+    
+    public function setPlainPassword(?string $plainPassword): void
+    {
+        $this->plainPassword = $plainPassword;
     }
 
     public function getPassword(): ?string

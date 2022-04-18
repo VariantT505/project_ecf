@@ -10,7 +10,7 @@
 	<div class="container-fluid">
 		<div class="row my-5 px-2">
 			<div class="col-sm-2 offset-sm-2 crop-img">
-				<img src="/{{ etablissement.featuredimage }}" class="img-fluid" alt="photo de l'établissement">
+				<img src="../../images/etablissements/{{ etablissement.featuredimage }}" class="img-fluid" alt="photo de l'établissement">
 			</div>
 			<div class="col-sm-6">
 				<h2>Hôtel le
@@ -40,7 +40,7 @@
 							<div class="frame-decoration">
 								<a href="{{path('app_reservation',{'suiid': suite.suiid,'etaid': etablissement.etaid})}}" class="btn btn-outline-secondary btn-overlap p-3">Réservation</a>
 							</div>
-							<img src="/{{ suite.featuredimage }}" class="img-fluid contain" alt="photo de l'établissement">
+							<img src="../../images/suites/{{ suite.featuredimage }}" class="img-fluid contain" alt="photo de l'établissement">
 						</div>
 					</div>
 				</div>
@@ -51,14 +51,14 @@
 					<p><strong>OFFRE PROMOTIONNELLE :</strong> En réservant directement sur notre site, vous ne payez rien avant votre arrivée !<br/>
 						Vous pouvez également réserver sur 
 						<a href="{{suite.bookingurl}}">Booking.com</a>.</p>
-					<a href="/{{suite.galleryone}}" data-toggle="lightbox">
-						<img src="/{{suite.galleryone}}" class="img-fluid col-3">
+					<a href="../../images/suites/{{suite.galleryone}}" data-toggle="lightbox">
+						<img src="../../images/suites/{{suite.galleryone}}" class="img-fluid col-3">
 					</a>
-					<a href="/{{suite.gallerytwo}}" data-toggle="lightbox">
-						<img src="/{{suite.gallerytwo}}" class="img-fluid col-3">
+					<a href="../../images/suites/{{suite.gallerytwo}}" data-toggle="lightbox">
+						<img src="../../images/suites/{{suite.gallerytwo}}" class="img-fluid col-3">
 					</a>
-					<a href="/{{suite.gallerythree}}" data-toggle="lightbox">
-						<img src="/{{suite.gallerythree}}" class="img-fluid col-3">
+					<a href="../../images/suites/{{suite.gallerythree}}" data-toggle="lightbox">
+						<img src="../../images/suites/{{suite.gallerythree}}" class="img-fluid col-3">
 					</a>
 				</div>
 			</div>

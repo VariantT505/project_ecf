@@ -3,29 +3,51 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Etablissements;
-use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
-use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
 use Doctrine\ORM\QueryBuilder;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
+use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
+use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class EtablissementsCrudController extends AbstractCrudController
 {
-    public const ETAB_BASE_PATH = '/';
+    public const ETAB_BASE_PATH = '/images/etablissements';
     public const ETAB_UPLOAD_DIR = 'public/images/etablissements';
 
     public static function getEntityFqcn(): string
     {
         return Etablissements::class;
+    }
+
+    public function updateEntity(EntityManagerInterface $entityManager, $entityInstance): void
+    {
+        $this->updatePassword($entityInstance);
+        parent::updateEntity($entityManager, $entityInstance);
+    }
+    
+    public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
+    {
+        $this->updatePassword($entityInstance);
+        parent::persistEntity($entityManager, $entityInstance);
+    }
+    
+    private function updatePassword(Etablissements $user): void
+    {
+        if ($user->getPlainPassword() == '') return;
+        $this->userRepository->setNewPassword($user, $user->getPlainPassword());
     }
 
     public function createIndexQueryBuilder(SearchDto $searchDto, EntityDto $entityDto, FieldCollection $fields, FilterCollection $filters): QueryBuilder
@@ -55,7 +77,8 @@ class EtablissementsCrudController extends AbstractCrudController
     {
         return $crud
             ->setEntityLabelInSingular('Etablissement')
-            ->setEntityLabelInPlural('Etablissements');
+            ->setEntityLabelInPlural('Etablissements')
+            ->setSearchFields(['etaid', 'email']);
     }
 
     public function configureFields(string $pageName): iterable
@@ -65,12 +88,17 @@ class EtablissementsCrudController extends AbstractCrudController
             TextField::new('address', 'Adresse'),
             IntegerField::new('postalcode', 'Code postal'),
             TextField::new('city', 'Ville'),
+            TextField::new('gerantfirstname', 'Prénom Gérant'),
+            TextField::new('gerantname', 'Nom Gérant'),
             TextareaField::new('description', 'Description')->hideOnIndex(),
             EmailField::new('email'),
             ImageField::new('featuredimage', 'Photo')
             ->setBasePath(self::ETAB_BASE_PATH)
             ->setUploadDir(self::ETAB_UPLOAD_DIR),
             TextField::new('password', 'Mot de passe')->hideOnIndex(),
+            AssociationField::new('admid', 'Email de l\'Administrateur')
+            ->hideOnIndex()
+            ->autocomplete(),
         ];
     }
 }
