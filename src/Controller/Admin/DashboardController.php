@@ -75,9 +75,5 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linktoCrud('Gérer', 'fas fa-eye', Clients::class),
         ])
         ->setPermission('ROLE_USER');
-        yield MenuItem::subMenu('Mes réservations', 'fas fa-bars')->setSubItems([
-            MenuItem::linktoCrud('Gérer', 'fas fa-eye', Reservations::class),
-        ])
-        ->setPermission('ROLE_USER');
     }
 }
